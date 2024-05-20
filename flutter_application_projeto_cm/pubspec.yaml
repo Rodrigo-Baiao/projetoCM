@@ -1,0 +1,57 @@
+name: flutter_application_projeto_cm
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.3.1 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/hats/hat_section.png
+    - assets/hats/hat1.png
+    - assets/hats/hat2.png
+    - assets/hats/hat3.png
+    - assets/hats/hat4.png
+    - assets/hats/hat5.png
+    - assets/hats/hat6.png
+    - assets/colors/color_section.png
+    - assets/colors/color1.png
+    - assets/colors/color2.png
+    - assets/colors/color3.png
+    - assets/colors/color4.png
+    - assets/colors/color5.png
+    - assets/colors/color6.png
+    - assets/backgrounds/background_section.png
+    - assets/backgrounds/bg1.png
+    - assets/backgrounds/bg2.png
+    - assets/backgrounds/bg3.png
+    - assets/backgrounds/bg4.png
+    - assets/backgrounds/bg5.png
+    - assets/backgrounds/bg6.png
+    - assets/backgrounds/bg7.png
+    - assets/backgrounds/bg8.png
+    - assets/backgrounds/bg9.png
+    - assets/backgrounds/bg10.png
+    - assets/backgrounds/bg11.png
+    - assets/backgrounds/bg12.png
+    - assets/windows/window_section.png
+    - assets/windows/window1.png
+    - assets/windows/window2.png
+    - assets/windows/window3.png
+    - assets/coin.png
+    - assets/quiz.png
+    - assets/clean_house.png
+    - assets/memory_game.png
+    - assets/color_game.png
+
