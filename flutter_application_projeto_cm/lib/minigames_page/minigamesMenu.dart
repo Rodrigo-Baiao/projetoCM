@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_projeto_cm/color_game/color_game.dart';
 
-void main() {
-  runApp(MinigamesApp());
-}
 
 class MinigamesApp extends StatelessWidget {
   @override
@@ -29,7 +27,28 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('MiniGames')),
+        title: Padding(
+          padding: const EdgeInsets.only(top: 16.0), // Ajuste a distância do topo conforme necessário
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              Expanded(
+                child: Text(
+                  'MiniGames',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+              const SizedBox(width: 48), // Espaçamento para equilibrar a largura do ícone
+            ],
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -152,16 +171,3 @@ class MemoryGame extends StatelessWidget {
   }
 }
 
-class ColorGame extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Color Game'),
-      ),
-      body: Center(
-        child: Text('Color Game Page'),
-      ),
-    );
-  }
-}
