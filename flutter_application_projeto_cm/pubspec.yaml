@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  provider: ^6.1.2
 
 dev_dependencies:
   flutter_test:
@@ -26,12 +27,12 @@ flutter:
     - assets/hats/hat5.png
     - assets/hats/hat6.png
     - assets/colors/color_section.png
-    - assets/colors/color1.png
-    - assets/colors/color2.png
-    - assets/colors/color3.png
-    - assets/colors/color4.png
-    - assets/colors/color5.png
-    - assets/colors/color6.png
+    - assets/colors/color_white.png
+    - assets/colors/color_pink.png
+    - assets/colors/color_light_pink.png
+    - assets/colors/color_yellow.png
+    - assets/colors/color_green.png
+    - assets/colors/color_blue.png
     - assets/backgrounds/background_section.png
     - assets/backgrounds/bg1.png
     - assets/backgrounds/bg2.png

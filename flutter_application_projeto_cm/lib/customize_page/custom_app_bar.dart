@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({super.key});
+  final VoidCallback onSavePressed;
+
+  const CustomAppBar({Key? key, required this.onSavePressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +25,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: <Widget>[
         Container(
-          margin:const EdgeInsets.only(right: 20), 
+          margin: const EdgeInsets.only(right: 20),
           child: TextButton(
-            onPressed: () {
-            },
+            onPressed: onSavePressed,
             child: const Text(
               'Save',
               style: TextStyle(
@@ -43,6 +44,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  // ignore: prefer_const_constructors
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
 }

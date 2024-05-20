@@ -1,36 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_projeto_cm/customize_page/custom_app_bar.dart';
+import 'package:flutter_application_projeto_cm/ghost/ghost.dart';
+import 'package:provider/provider.dart';
 
 
-class Customize extends StatelessWidget  {
-  const Customize({super.key});
+class Customize extends StatelessWidget {
+  const Customize({Key? key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: CustomAppBar(),
-      body:GhostCustomizationPage(),
+    return ChangeNotifierProvider(
+      create: (context) => GhostSettings(), 
+      child: Scaffold(
+        appBar: CustomAppBar(
+          onSavePressed: () {
+        
+          },
+        ),
+        body: GhostCustomizationPage(),
+      ),
     );
   }
 }
 
+
 class GhostCustomizationPage extends StatefulWidget {
-  const GhostCustomizationPage({super.key});
+  const GhostCustomizationPage({Key? key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _GhostCustomizationPageState createState() => _GhostCustomizationPageState();
 }
 
 class _GhostCustomizationPageState extends State<GhostCustomizationPage> {
-  Color _ghostColor = Colors.transparent;
-  Color _selectedColor = Colors.black;
-  String _hatImage = ''; 
+  String _ghostImage = '/colors/color_white.png';
+  String _selectedImage = '/colors/color_white.png';
+  String _hatImage = '';
 
-  void changeColor(Color color) {
+  void changeImage(String imagePath) {
     setState(() {
-      _ghostColor = color;
-      _selectedColor = color;
+      _ghostImage = imagePath;
+      _selectedImage = imagePath;
     });
   }
 
@@ -42,21 +51,22 @@ class _GhostCustomizationPageState extends State<GhostCustomizationPage> {
 
   void resetCustomization() {
     setState(() {
-      _ghostColor = Colors.transparent;
-      _selectedColor = Colors.black;
+      _ghostImage = '/colors/color_white.png';
+      _selectedImage = '/colors/color_white.png';
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final ghostSettings = Provider.of<GhostSettings>(context);
+    
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // Título
             Container(
-              margin:const EdgeInsets.only(bottom: 20),
+              margin: EdgeInsets.only(bottom: 20),
               child: const Text(
                 'Customize your pet!',
                 style: TextStyle(
@@ -70,86 +80,141 @@ class _GhostCustomizationPageState extends State<GhostCustomizationPage> {
                 alignment: Alignment.topCenter,
                 children: [
                   Positioned(
-                    top: 50, 
-                    child: ColorFiltered(
-                      colorFilter: ColorFilter.mode(
-                        _ghostColor,
-                        BlendMode.srcIn,
-                      ),
-                      child: Image.asset(
-                        'assets/colors/color1.png',
-                        width: 300,
-                        height: 400,
-                      ),
+                    top: 50,
+                    child: Image.asset(
+                      _ghostImage,
+                      width: 300,
+                      height: 400,
                     ),
                   ),
                   if (_hatImage.isNotEmpty)
                     Positioned(
-                      top: 30, 
+                      top: 30,
                       child: Image.asset(
                         _hatImage,
-                        width: 240, 
-                        height: 140, 
+                        width: 240,
+                        height: 140,
                         fit: BoxFit.contain,
                       ),
                     ),
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             SizedBox(
               height: 50,
               child: ListView(
                 scrollDirection: Axis.horizontal,
-                children: List.generate(
-                  Colors.primaries.length + 1,
-                  (index) {
-                    if (index == Colors.primaries.length) {
-                      return GestureDetector(
-                        onTap: resetCustomization,
-                        child: Container(
-                          margin:const EdgeInsets.all(5),
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
-                            border: _selectedColor == Colors.white
-                                ? Border.all(color: Colors.black, width: 2)
-                                : null,
-                          ),
-                          child:const Icon(
-                            Icons.block,
-                            color: Colors.red,
-                            size: 20,
-                          ),
-                        ),
-                      );
-                    } else {
-                      Color color = Colors.primaries[index];
-                      return GestureDetector(
-                        onTap: () {
-                          changeColor(color);
-                        },
-                        child: Container(
-                          margin:const EdgeInsets.all(5),
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: color,
-                            shape: BoxShape.circle,
-                            border: _selectedColor == color
-                                ? Border.all(color: Colors.black, width: 2)
-                                : null,
-                          ),
-                        ),
-                      );
-                    }
-                  },
-                ),
+                children: [
+                  GestureDetector(
+                    onTap: resetCustomization,
+                    child: Container(
+                      margin: EdgeInsets.all(5),
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                        border: _selectedImage == '/colors/color_white.png'
+                            ? Border.all(color: Colors.black, width: 2)
+                            : null,
+                      ),
+                      child: Icon(
+                        Icons.block,
+                        color: Colors.red,
+                        size: 20,
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      changeImage('/colors/color_blue.png');
+                    },
+                    child: Container(
+                      margin: EdgeInsets.all(5),
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: _selectedImage == '/colors/color_blue.png'
+                            ? Border.all(color: Colors.black, width: 2)
+                            : null,
+                      ),
+                      child: Image.asset('/colors/color_blue.png'),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      changeImage('/colors/color_pink.png');
+                    },
+                    child: Container(
+                      margin: EdgeInsets.all(5),
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: _selectedImage == '/colors/color_pink.png'
+                            ? Border.all(color: Colors.black, width: 2)
+                            : null,
+                      ),
+                      child: Image.asset('/colors/color_pink.png'),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      changeImage('colors/color_light_pink.png');
+                    },
+                    child: Container(
+                      margin: EdgeInsets.all(5),
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: _selectedImage == '/colors/color_light_pink.png'
+                            ? Border.all(color: Colors.black, width: 2)
+                            : null,
+                      ),
+                      child: Image.asset('/colors/color_light_pink.png'),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      changeImage('/colors/color_yellow.png');
+                    },
+                    child: Container(
+                      margin: EdgeInsets.all(5),
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: _selectedImage == '/colors/color_yellow.png'
+                            ? Border.all(color: Colors.black, width: 2)
+                            : null,
+                      ),
+                      child: Image.asset('/colors/color_yellow.png'),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      changeImage('/colors/color_green.png');
+                    },
+                    child: Container(
+                      margin: EdgeInsets.all(5),
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: _selectedImage == '/colors/color_green.png'
+                            ? Border.all(color: Colors.black, width: 2)
+                            : null,
+                      ),
+                      child: Image.asset('/colors/color_green.png'),
+                    ),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
             SizedBox(
               height: 50,
               child: ListView(
@@ -160,7 +225,7 @@ class _GhostCustomizationPageState extends State<GhostCustomizationPage> {
                       changeHat('');
                     },
                     child: Container(
-                      margin:const EdgeInsets.all(5),
+                      margin: EdgeInsets.all(5),
                       width: 40,
                       height: 40,
                       decoration: BoxDecoration(
@@ -170,7 +235,7 @@ class _GhostCustomizationPageState extends State<GhostCustomizationPage> {
                             ? Border.all(color: Colors.black, width: 2)
                             : null,
                       ),
-                      child: const Center(
+                      child: Center(
                         child: Icon(
                           Icons.cancel,
                           color: Colors.red,
@@ -179,6 +244,7 @@ class _GhostCustomizationPageState extends State<GhostCustomizationPage> {
                       ),
                     ),
                   ),
+                  
                   GestureDetector(
                     onTap: () {
                       changeHat('assets/hats/hat1.png'); 
@@ -245,6 +311,7 @@ class _GhostCustomizationPageState extends State<GhostCustomizationPage> {
                       ),
                     ),
                   ),
+                  
                 ],
               ),
             ),

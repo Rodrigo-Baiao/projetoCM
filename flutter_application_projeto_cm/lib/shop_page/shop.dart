@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_projeto_cm/shop_page/shop_app_bar.dart';
 
-void main() {
-  runApp(ShopApp());
-}
+
 
 class ShopApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Shop',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: ShopHomePage(),
+    return Scaffold(
+      appBar: ShopAppBar(),
+      body: ShopHomePage(),
     );
   }
 }
@@ -75,28 +71,6 @@ class ShopHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Shop'),
-        centerTitle: true,
-        actions: [
-          Container(
-            margin: EdgeInsets.only(right: 10),
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: Color.fromARGB(255, 224, 217, 217),
-              shape: BoxShape.rectangle,
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image.asset('assets/coin.png', width: 24, height: 24), // Exibe a imagem da moeda
-                SizedBox(width: 5),
-                Text('999999', style: TextStyle(fontSize: 18)), // Exibe a quantidade de moedas
-              ],
-            ),
-          ),
-        ],
-      ),
       body: GridView.builder(
         padding: EdgeInsets.all(10),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

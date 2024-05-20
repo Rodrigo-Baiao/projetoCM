@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_projeto_cm/color_game/color_game.dart';
+import 'package:flutter_application_projeto_cm/minigames_page/minigame_app_bar.dart';
 
 
 class MinigamesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Mini Jogos',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: HomePage(),
+    return Scaffold(
+      appBar: MinigameAppBar(),
+      body: HomePage(),
     );
   }
 }
@@ -26,30 +24,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Padding(
-          padding: const EdgeInsets.only(top: 16.0), // Ajuste a distância do topo conforme necessário
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-              Expanded(
-                child: Text(
-                  'MiniGames',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-              const SizedBox(width: 48), // Espaçamento para equilibrar a largura do ícone
-            ],
-          ),
-        ),
-      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: GridView.builder(

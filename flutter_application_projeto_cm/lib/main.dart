@@ -68,12 +68,11 @@ class HomePage extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Expanded(
+           Expanded(
             child: Center(
-              child: Icon(
-                Icons.pets_rounded,
-                size: 150,
-                color: Colors.grey,
+              child: Image.asset(
+                "/colors/color_white.png",
+  
               ),
             ),
           ),
@@ -108,7 +107,7 @@ class HomePage extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ShopHomePage()),
+                      MaterialPageRoute(builder: (context) => ShopApp()),
                     );
                   },
                 ),
