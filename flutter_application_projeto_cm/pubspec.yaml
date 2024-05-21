@@ -55,4 +55,8 @@ flutter:
     - assets/clean_house.png
     - assets/memory_game.png
     - assets/color_game.png
+    - assets/game_controller.png
+    - assets/customize_icon.png
+    - assets/lollipop_icon.png
+    - assets/shower_icon.png
 
