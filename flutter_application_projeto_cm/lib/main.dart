@@ -27,31 +27,65 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            // Top row with icons and currency
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            // Top section with currency, profile, and settings icons
+            Column(
               children: [
-                IconButton(
-                  icon: Icon(Icons.store),
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => ShopApp()));
-                  },
-                ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Icon(Icons.monetization_on),
-                    Text('300'),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 0),
+                          child: Image.asset('/coin.png', width: 50, height: 50),
+                        ),
+                        const Text('300'),
+                      ],
+                    ),
+                    SizedBox(width: 12),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: IconButton(
+                        icon: Icon(Icons.person),
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ShopApp()));
+                        },
+                      ),
+                    ),
+                    SizedBox(width: 12),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: GestureDetector(
+                        child: Image.asset('/settings_icon.png', width: 30, height: 30),
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsPage()));
+                        },
+                      ),
+                    ),
                   ],
                 ),
-                IconButton(
-                  icon: Icon(Icons.person),
-                  onPressed: () {},
-                ),
-                IconButton(
-                  icon: Icon(Icons.settings),
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsPage()));
-                  },
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(50, 8, 50, 8), // Adiciona um pouco mais de preenchimento à esquerda
+                      child: GestureDetector(
+                        child: Image.asset('/shop_icon.png', width: 50, height: 50),
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ShopApp()));
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 8, 30, 8), // Adiciona um pouco mais de preenchimento à direita
+                      child: GestureDetector(
+                        child: Image.asset('/map_icon.png', width: 100, height: 100),
+                        onTap: () {
+                          // Adicione aqui o comportamento desejado ao clicar no ícone de mapa
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -115,8 +149,9 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ],
                 ),
+                SizedBox(height: 10), // Adiciona um espaço entre as duas linhas de ícones
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly, // Espaça uniformemente os ícones
                   children: [
                     GestureDetector(
                       child: Image.asset("/game_controller.png"),
@@ -124,7 +159,6 @@ class HomeScreen extends StatelessWidget {
                         Navigator.push(context, MaterialPageRoute(builder: (context) => MinigamesApp()));
                       },
                     ),
-                    SizedBox(width: 40), // Ajusta a distância entre os ícones
                     GestureDetector(
                       child: Image.asset("/customize_icon.png"),
                       onTap: () {

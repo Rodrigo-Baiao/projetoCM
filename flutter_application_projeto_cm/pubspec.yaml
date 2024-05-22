@@ -59,4 +59,8 @@ flutter:
     - assets/customize_icon.png
     - assets/lollipop_icon.png
     - assets/shower_icon.png
+    - assets/shop_icon.png
+    - assets/map_icon.png
+    - assets/settings_icon.png
+    - assets/profile_icon.png
 
