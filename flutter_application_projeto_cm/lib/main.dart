@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_projeto_cm/customize_page/customize_page.dart';
+import 'package:flutter_application_projeto_cm/ghost/ghost.dart';
 import 'package:flutter_application_projeto_cm/minigames_page/minigamesMenu.dart';
 import 'package:flutter_application_projeto_cm/settings_page/settings_page.dart';
 import 'package:flutter_application_projeto_cm/shop_page/shop.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,23 +13,35 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => GhostSettings()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: HomeScreen(),
+      ),
     );
   }
 }
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final ghostSettings = Provider.of<GhostSettings>(context);
+    double money = ghostSettings.money;
+   
     return Scaffold(
       backgroundColor: Colors.lightBlue[50],
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            // Top section with currency, profile, and settings icons
             Column(
               children: [
                 Row(
@@ -37,9 +51,9 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(top: 0),
-                          child: Image.asset('/coin.png', width: 50, height: 50),
+                          child: Image.asset('/coin.png', width: 60, height: 60),
                         ),
-                        const Text('300'),
+                         Text('$money'),
                       ],
                     ),
                     SizedBox(width: 12),
@@ -56,7 +70,7 @@ class HomeScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(right: 10),
                       child: GestureDetector(
-                        child: Image.asset('/settings_icon.png', width: 30, height: 30),
+                        child: Image.asset('/settings_icon.png', width: 40, height: 40),
                         onTap: () {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsPage()));
                         },
@@ -68,18 +82,18 @@ class HomeScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(50, 8, 50, 8), // Adiciona um pouco mais de preenchimento à esquerda
+                      padding: const EdgeInsets.fromLTRB(40, 8, 30, 8), // Adiciona um pouco mais de preenchimento à esquerda
                       child: GestureDetector(
-                        child: Image.asset('/shop_icon.png', width: 50, height: 50),
+                        child: Image.asset('/shop_icon.png', width: 70, height: 70),
                         onTap: () {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => ShopApp()));
                         },
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 8, 30, 8), // Adiciona um pouco mais de preenchimento à direita
+                      padding: const EdgeInsets.fromLTRB(0, 8, 10, 8), // Adiciona um pouco mais de preenchimento à direita
                       child: GestureDetector(
-                        child: Image.asset('/map_icon.png', width: 100, height: 100),
+                        child: Image.asset('/map_icon.png', width: 120, height: 120),
                         onTap: () {
                           // Adicione aqui o comportamento desejado ao clicar no ícone de mapa
                         },
@@ -114,11 +128,21 @@ class HomeScreen extends StatelessWidget {
                       height: 350,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage('colors/color_white.png'),
+                          image: AssetImage(ghostSettings.ghostImage),
                           fit: BoxFit.cover,
                         ),
                       ),
                     ),
+                    if (ghostSettings.hatImage.isNotEmpty)
+                      Positioned(
+                        top: 30,
+                        child: Image.asset(
+                          ghostSettings.hatImage,
+                          width: 240,
+                          height: 140,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
                   ],
                 ),
               ],
@@ -161,8 +185,18 @@ class HomeScreen extends StatelessWidget {
                     ),
                     GestureDetector(
                       child: Image.asset("/customize_icon.png"),
-                      onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => Customize()));
+                      onTap: () async {
+                        print("AQUI");
+                         print(ghostSettings.ghostImage);
+                        print(ghostSettings.hatImage);
+                        final result = await Navigator.push(context, MaterialPageRoute(builder: (context) => Customize()));
+                        print(result);
+                        if (result != null) {
+                          setState(() {
+                            ghostSettings.setGhostImage(result['selectedImage']);
+                            ghostSettings.setHatImage(result['hatImage']);
+                          });
+                        }
                       },
                     ),
                   ],

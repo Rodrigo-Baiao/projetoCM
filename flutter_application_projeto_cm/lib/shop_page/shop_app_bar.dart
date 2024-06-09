@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_projeto_cm/ghost/ghost.dart';
+import 'package:provider/provider.dart';
 
 class ShopAppBar extends StatelessWidget implements PreferredSizeWidget {
   const ShopAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final ghostSetting = Provider.of<GhostSettings>(context);
+    double money = ghostSetting.money;
+
     return AppBar(
       automaticallyImplyLeading: false,
       title: Row(
@@ -33,7 +38,7 @@ class ShopAppBar extends StatelessWidget implements PreferredSizeWidget {
               children: [
                 Image.asset('assets/coin.png', width: 24, height: 24), // Exibe a imagem da moeda
                 const SizedBox(width: 5),
-                const Text('999999', style: TextStyle(fontSize: 18)), // Exibe a quantidade de moedas
+                Text('$money', style: TextStyle(fontSize: 18)), // Exibe a quantidade de moedas
               ],
             ),
           ),
