@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_projeto_cm/ghost/ghost.dart';
+import 'package:flutter_application_projeto_cm/settings_page/sound.dart';
 import 'package:flutter_application_projeto_cm/shop_page/shop_app_bar.dart';
 import 'package:provider/provider.dart';
 
@@ -151,6 +152,7 @@ class ProductDetailPage extends StatelessWidget {
               onPressed: () {
                 if(ghostSettings.money - product.price >= 0){
                   onBuy();
+                  Sound.buySound();
                 }
                 Navigator.pop(context);
                 ghostSettings.debitMoney(product.price, context);

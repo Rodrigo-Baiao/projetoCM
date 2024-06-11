@@ -1,17 +1,47 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
+import 'package:flutter_application_projeto_cm/settings_page/sound.dart';
+
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SoundNotificationSwitches extends StatefulWidget {
-  const SoundNotificationSwitches({super.key});
+  const SoundNotificationSwitches({Key? key}) : super(key: key);
 
   @override
   _SoundNotificationSwitchesState createState() => _SoundNotificationSwitchesState();
 }
 
 class _SoundNotificationSwitchesState extends State<SoundNotificationSwitches> {
-  bool _soundEnabled = true;
+  late bool _soundEnabled = false;
   bool _notificationsEnabled = false;
+  Sound _sound = Sound();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSoundEnabledState();
+  }
+
+  Future<void> _loadSoundEnabledState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _soundEnabled = prefs.getBool('soundEnabled') ?? false;
+    });
+  }
+
+  Future<void> _saveSoundEnabledState(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('soundEnabled', value);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_soundEnabled) {
+      Sound.playSound();
+    } else {
+      Sound.stopSound();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +58,15 @@ class _SoundNotificationSwitchesState extends State<SoundNotificationSwitches> {
               onChanged: (bool value) {
                 setState(() {
                   _soundEnabled = value;
+                  if (_soundEnabled) {
+                    Sound.playSound();
+                  } else {
+                    Sound.stopSound();
+                  }
+                  _saveSoundEnabledState(_soundEnabled);
                 });
               },
-              activeColor:const Color.fromARGB(246, 179, 206, 222),
+              activeColor: const Color.fromARGB(246, 179, 206, 222),
             ),
           ),
         ),
