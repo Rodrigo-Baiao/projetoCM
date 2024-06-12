@@ -5,10 +5,12 @@ import 'package:flutter_application_projeto_cm/shop_page/shop_app_bar.dart';
 import 'package:provider/provider.dart';
 
 class ShopApp extends StatelessWidget {
+  const ShopApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ShopAppBar(),
+      appBar: const ShopAppBar(),
       body: ShopHomePage(),
     );
   }
@@ -29,6 +31,8 @@ class ShopHomePage extends StatelessWidget {
     Product(name: 'Color 5', price: 500, imageUrl: 'assets/colors/color_light_pink.png', type: 'color'),
   ];
 
+  ShopHomePage({super.key});
+
     @override
     Widget build(BuildContext context) {
       final ghostSettings = Provider.of<GhostSettings>(context);
@@ -44,8 +48,8 @@ class ShopHomePage extends StatelessWidget {
 
     return Scaffold(
       body: GridView.builder(
-        padding: EdgeInsets.all(10),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        padding: const EdgeInsets.all(10),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           childAspectRatio: 1.5,
           crossAxisSpacing: 30,
@@ -80,7 +84,7 @@ class SectionButton extends StatelessWidget {
   final Product product;
   final Function onTap;
 
-  SectionButton({required this.product, required this.onTap});
+  const SectionButton({super.key, required this.product, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +98,7 @@ class SectionButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         child: Container(
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
           decoration: BoxDecoration(
             color: Colors.grey[200],
             borderRadius: BorderRadius.circular(10),
@@ -105,8 +109,8 @@ class SectionButton extends StatelessWidget {
               Expanded(
                 child: Image.asset(product.imageUrl, fit: BoxFit.contain),
               ),
-              SizedBox(height: 20),
-              Text(product.name, textAlign: TextAlign.center, style: TextStyle(fontSize: 16)),
+              const SizedBox(height: 20),
+              Text(product.name, textAlign: TextAlign.center, style: const TextStyle(fontSize: 16)),
             ],
           ),
         ),
@@ -121,7 +125,7 @@ class ProductDetailPage extends StatelessWidget {
   final Product product;
   final Function onBuy;
 
-  ProductDetailPage({required this.product, required this.onBuy});
+  const ProductDetailPage({super.key, required this.product, required this.onBuy});
 
   @override
   Widget build(BuildContext context) {
@@ -138,16 +142,16 @@ class ProductDetailPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.asset(product.imageUrl, height: 300, fit: BoxFit.contain),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset('assets/coin.png', width: 24, height: 24),
-                SizedBox(width: 10),
-                Text('${product.price}', style: TextStyle(fontSize: 24)),
+                const SizedBox(width: 10),
+                Text('${product.price}', style: const TextStyle(fontSize: 24)),
               ],
             ),
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             ElevatedButton(
               onPressed: () {
                 if(ghostSettings.money - product.price >= 0){
@@ -157,7 +161,7 @@ class ProductDetailPage extends StatelessWidget {
                 Navigator.pop(context);
                 ghostSettings.debitMoney(product.price, context);
               },
-              child: Text('Buy'),
+              child: const Text('Buy'),
             ),
           ],
         ),

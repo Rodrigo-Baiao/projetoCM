@@ -70,4 +70,9 @@ flutter:
     - assets/sound/music.mp3
     - assets/sound/click_sound.mp3
     - assets/sound/buy_sound.mp3
+    - assets/sad_ghost.png
+    - assets/sound/lollipop_licking.mp3
+    - assets/sound/clock.mp3
+    - assets/sound/level_passed.mp3
+    - assets/sound/level_failed.mp3
 

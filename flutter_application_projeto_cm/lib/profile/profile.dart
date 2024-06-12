@@ -1,72 +1,72 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import "package:flutter_application_projeto_cm/ghost/ghost.dart";
+import 'package:flutter_application_projeto_cm/profile/profile_app_bar.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(ProfileApp());
+  runApp(const ProfileApp());
 }
 
 class ProfileApp extends StatelessWidget {
+  const ProfileApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: AchievementsPage(),
+    return const Scaffold(
+      appBar: ProfileAppBar(),
+      body: AchievementsPage(),
     );
   }
 }
 
 class AchievementsPage extends StatelessWidget {
+  const AchievementsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
+    final ghostSettings = Provider.of<GhostSettings>(context);
+
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {
-            // Handle back button press
-          },
-        ),
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
       body: Column(
         children: [
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           CircleAvatar(
             radius: 50,
             backgroundColor: Colors.grey[300],
-            child: Image.asset('assets/ghost.png', height: 60), // Update this with your ghost image asset
+            
+            child: Image.asset(ghostSettings.ghostImage, height: 60), 
           ),
-          SizedBox(height: 10),
-          Text(
+          const SizedBox(height: 10),
+          const Text(
             'Spook',
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: Colors.blue[100],
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Text(
+                  child: const Text(
                     'Achievements',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ),
-                SizedBox(height: 10),
-                AchievementCard(
+                const SizedBox(height: 10),
+                const AchievementCard(
                   icon: Icons.emoji_events,
                   text: '1 week streak!',
                 ),
-                AchievementCard(
+                const AchievementCard(
                   icon: Icons.cleaning_services,
                   text: 'House cleaned',
                 ),
-                AchievementCard(
+                const AchievementCard(
                   icon: Icons.play_arrow,
                   text: '1 month played',
                 ),
@@ -83,7 +83,7 @@ class AchievementCard extends StatelessWidget {
   final IconData icon;
   final String text;
 
-  AchievementCard({required this.icon, required this.text});
+  const AchievementCard({super.key, required this.icon, required this.text});
 
   @override
   Widget build(BuildContext context) {

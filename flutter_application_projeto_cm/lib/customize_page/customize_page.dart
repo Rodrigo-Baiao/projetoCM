@@ -1,15 +1,17 @@
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_projeto_cm/customize_page/custom_app_bar.dart';
 import 'package:flutter_application_projeto_cm/ghost/ghost.dart';
 import 'package:provider/provider.dart';
 
 class Customize extends StatelessWidget {
-  const Customize({Key? key});
+  const Customize({super.key});
 
   @override
   Widget build(BuildContext context) {
     return 
-      Scaffold(
+      const Scaffold(
         body: GhostCustomizationPage(),
       
     );
@@ -17,7 +19,7 @@ class Customize extends StatelessWidget {
 }
 
 class GhostCustomizationPage extends StatefulWidget {
-  const GhostCustomizationPage({Key? key}) : super(key: key);
+  const GhostCustomizationPage({super.key});
 
   @override
   _GhostCustomizationPageState createState() => _GhostCustomizationPageState();
@@ -48,10 +50,6 @@ class _GhostCustomizationPageState extends State<GhostCustomizationPage> {
     final hatProducts = _purchasedProducts.where((product) => product.type == 'hat').toList();
     final colorProducts = _purchasedProducts.where((product) => product.type == 'color').toList();
 
-    print(hatProducts);
-    print(colorProducts);
-
-
     return Scaffold(
       appBar: CustomAppBar(
         
@@ -70,7 +68,7 @@ class _GhostCustomizationPageState extends State<GhostCustomizationPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(bottom: 20),
+              margin: const EdgeInsets.only(bottom: 20),
               child: const Text(
                 'Customize your pet!',
                 style: TextStyle(
@@ -105,11 +103,11 @@ class _GhostCustomizationPageState extends State<GhostCustomizationPage> {
                       ],
                     ),
                   )
-                : Text(
+                : const Text(
                     'No items available',
                     style: TextStyle(fontSize: 18, color: Colors.red),
                   ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             if (hasItems)
               Row(
                 children: [
@@ -124,7 +122,7 @@ class _GhostCustomizationPageState extends State<GhostCustomizationPage> {
                               changeHat(product.imageUrl);
                             },
                             child: Container(
-                              margin: EdgeInsets.all(5),
+                              margin: const EdgeInsets.all(5),
                               width: 40,
                               height: 40,
                               decoration: BoxDecoration(
@@ -142,7 +140,7 @@ class _GhostCustomizationPageState extends State<GhostCustomizationPage> {
                   ),
                 ],
               ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             if (hasItems)
               Row(
                 children: [
@@ -157,7 +155,7 @@ class _GhostCustomizationPageState extends State<GhostCustomizationPage> {
                               changeImage(product.imageUrl);
                             },
                             child: Container(
-                              margin: EdgeInsets.all(5),
+                              margin: const EdgeInsets.all(5),
                               width: 40,
                               height: 40,
                               decoration: BoxDecoration(

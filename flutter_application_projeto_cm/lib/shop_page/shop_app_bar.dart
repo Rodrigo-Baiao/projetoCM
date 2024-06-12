@@ -36,9 +36,9 @@ class ShopAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Image.asset('assets/coin.png', width: 24, height: 24), // Exibe a imagem da moeda
+                Image.asset('assets/coin.png', width: 24, height: 24), 
                 const SizedBox(width: 5),
-                Text('$money', style: TextStyle(fontSize: 18)), // Exibe a quantidade de moedas
+                Text('$money', style: const TextStyle(fontSize: 18)), 
               ],
             ),
           ),

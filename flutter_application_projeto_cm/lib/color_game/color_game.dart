@@ -5,11 +5,12 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_projeto_cm/color_game/color_game_app_bar.dart';
-
+import 'package:flutter_application_projeto_cm/ghost/ghost.dart';
+import 'package:flutter_application_projeto_cm/ghost/money.dart';
+import 'package:flutter_application_projeto_cm/settings_page/sound.dart';
+import 'package:provider/provider.dart';
 
 class ColorGame extends StatelessWidget {
-
-
   final GlobalKey<_ColorGamePageState> _colorGamePageKey = GlobalKey<_ColorGamePageState>();
   ColorGame({super.key});
 
@@ -57,6 +58,7 @@ class _ColorGamePageState extends State<ColorGamePage> {
   bool _gameStarted = false;
   bool _playing = false;
   bool _tryAgain = false;
+  bool _showMoneyAnimation = false;
 
   void _endGame() {
     setState(() {
@@ -73,6 +75,7 @@ class _ColorGamePageState extends State<ColorGamePage> {
   }
 
   void _startGame() {
+    Sound.clockSound();
     setState(() {
       _sequence.clear();
       _userSequence.clear();
@@ -97,6 +100,7 @@ class _ColorGamePageState extends State<ColorGamePage> {
       setState(() {
         _countdown--;
         if (_countdown == 0) {
+          Sound.stopClockSound();
           _timer.cancel();
           _showSequence = true;
           _gameStarted = false;
@@ -106,8 +110,11 @@ class _ColorGamePageState extends State<ColorGamePage> {
   }
 
   void _checkSequence() {
+    final ghostSettings = Provider.of<GhostSettings>(context, listen: false);
+
     for (int i = 0; i < _sequence.length; i++) {
       if (_sequence[i] != _userSequence[i]) {
+        Sound.playLevelFailed();
         setState(() {
           _playing = false;
           _tryAgain = true;
@@ -115,111 +122,132 @@ class _ColorGamePageState extends State<ColorGamePage> {
         return;
       }
     }
+    Sound.playLevelpassed();
+
     setState(() {
+      _showMoneyAnimation = true;
+      ghostSettings.money += 10; // Incrementa o dinheiro aqui
       _level++;
       _countdown = 5;
       _startGame();
+    });
+
+    Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        _showMoneyAnimation = false;
+      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'Color Game',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            if (_tryAgain)
-              const Text(
-                "Try Again!",
-                style: TextStyle(color: Colors.red),
-              ),
-            const SizedBox(height: 20),
-            if (!_playing)
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    _level = 1;
-                    _countdown = 5;
-                    _gameStarted = false;
-                    _playing = true;
-                  });
-                  _startGame();
-                },
-                child: const Text('Play Game'),
-              ),
-            if (_gameStarted)
-              Column(
-                children: <Widget>[
-                  Text('Level: $_level', style: const TextStyle(fontSize: 20)),
-                  const SizedBox(height: 10),
-                  Text('$_countdown', style: const TextStyle(fontSize: 40)),
-                  const SizedBox(height: 10),
-                  const Text('Time to memorize:', style: TextStyle(fontSize: 20)),
-                  const SizedBox(height: 10),
-                  Wrap(
-                    spacing: 10,
-                    alignment: WrapAlignment.center,
-                    children: _sequence
-                        .map((color) => Container(
-                              width: 30,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                color: color,
-                              ),
-                            ))
-                        .toList(),
+        child: Stack(
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const Text(
+                  'Color Game',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+                if (_tryAgain)
+                  const Text(
+                    "Try Again!",
+                    style: TextStyle(color: Colors.red),
                   ),
-                ],
-              ),
-            if (_showSequence)
-              Column(
-                children: <Widget>[
-                  const Text('Guess The Sequence:', style: TextStyle(fontSize: 20)),
-                  const SizedBox(height: 10),
-                  Wrap(
-                    spacing: 2,
-                    runSpacing: 2,
-                    alignment: WrapAlignment.center,
-                    children: _colorArray
-                        .map((color) => GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  _userSequence.add(color);
-                                  if (_userSequence.length == _sequence.length) {
-                                    _showSequence = false;
-                                    _checkSequence();
-                                  }
-                                });
-                              },
-                              child: Container(
-                                width: 30,
-                                height: 30,
-                                decoration: BoxDecoration(
-                                  color: color,
-                                  border: Border.all(
-                                    color: _userSequence.contains(color)
-                                        ? Colors.green
-                                        : Colors.transparent,
-                                    width: 3,
+                const SizedBox(height: 20),
+                if (!_playing)
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        _level = 1;
+                        _countdown = 5;
+                        _gameStarted = false;
+                        _playing = true;
+                      });
+                      _startGame();
+                    },
+                    child: const Text('Play Game'),
+                  ),
+                if (_gameStarted)
+                  Column(
+                    children: <Widget>[
+                      Text('Level: $_level', style: const TextStyle(fontSize: 20)),
+                      const SizedBox(height: 10),
+                      Text('$_countdown', style: const TextStyle(fontSize: 40)),
+                      const SizedBox(height: 10),
+                      const Text('Time to memorize:', style: TextStyle(fontSize: 20)),
+                      const SizedBox(height: 10),
+                      Wrap(
+                        spacing: 10,
+                        alignment: WrapAlignment.center,
+                        children: _sequence
+                            .map((color) => Container(
+                                  width: 30,
+                                  height: 30,
+                                  decoration: BoxDecoration(
+                                    color: color,
                                   ),
-                                ),
-                              ),
-                            ))
-                        .toList(),
+                                ))
+                            .toList(),
+                      ),
+                    ],
                   ),
-                ],
+                if (_showSequence)
+                  Column(
+                    children: <Widget>[
+                      const Text('Guess The Sequence:', style: TextStyle(fontSize: 20)),
+                      const SizedBox(height: 10),
+                      Wrap(
+                        spacing: 2,
+                        runSpacing: 2,
+                        alignment: WrapAlignment.center,
+                        children: _colorArray
+                            .map((color) => GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      _userSequence.add(color);
+                                      if (_userSequence.length == _sequence.length) {
+                                        _showSequence = false;
+                                        _checkSequence();
+                                      }
+                                    });
+                                  },
+                                  child: Container(
+                                    width: 30,
+                                    height: 30,
+                                    decoration: BoxDecoration(
+                                      color: color,
+                                      border: Border.all(
+                                        color: _userSequence.contains(color)
+                                            ? Colors.green
+                                            : Colors.transparent,
+                                        width: 3,
+                                      ),
+                                    ),
+                                  ),
+                                ))
+                            .toList(),
+                      ),
+                    ],
+                  ),
+                if (_level > 10)
+                  const Text(
+                    "Ganhaste",
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.green),
+                  ),
+              ],
+            ),
+            if (_showMoneyAnimation)
+              const Positioned(
+                top: 200,
+                left: 100,
+                child: MoneyAnimation(amount: 10),
               ),
-            if (_level > 10)
-              const Text(
-                "Ganhaste",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.green),
-              )
           ],
         ),
       ),

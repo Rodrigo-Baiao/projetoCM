@@ -1,17 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_projeto_cm/settings_page/sound.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GhostSettings extends ChangeNotifier {
   String _ghostImage = '/colors/color_white.png';
   String _hatImage = '';
+
   List<Product> _purchasedProducts = [];
   double money = 1000;
+  bool showMoneyAnimation = false;
+  int animationAmount = 0;
+  int _numFeedings = 0;
+  static const int maxFeedings = 3;
+  bool _showFeedLimitMessage = false; 
+  bool get showFeedLimitMessage => _showFeedLimitMessage; 
+
 
   String get ghostImage => _ghostImage;
   String get hatImage => _hatImage;
 
   GhostSettings() {
     _loadSettings();
+  }
+
+  void feed() {
+    if (_numFeedings < maxFeedings) {
+      Sound.lickSound();
+      money += 20;
+      animationAmount = 20;
+      showMoneyAnimation = true;
+      _numFeedings++; 
+      notifyListeners();
+
+      Future.delayed(const Duration(seconds: 2), () {
+        showMoneyAnimation = false;
+        notifyListeners();
+      });
+    }else{
+      _showFeedLimitMessage = true;
+      notifyListeners();
+
+      Future.delayed(const Duration(seconds: 2), () {
+        _showFeedLimitMessage = false;
+        notifyListeners();
+      });
+    }
+  }
+
+  void resetFeedings() {
+    _numFeedings = 0;
+    notifyListeners();
   }
 
   void setGhostImage(String imagePath) {
@@ -64,11 +102,11 @@ class GhostSettings extends ChangeNotifier {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Saldo Insuficiente"),
-            content: Text("Seu saldo é insuficiente para realizar esta compra."),
+            title: const Text("Saldo Insuficiente"),
+            content: const Text("Seu saldo é insuficiente para realizar esta compra."),
             actions: <Widget>[
               TextButton(
-                child: Text("OK"),
+                child: const Text("OK"),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -91,9 +129,15 @@ class Product {
 }
 
 final List<Product> allProducts = [
-  Product(name: 'Hat 1', price: 350, imageUrl: 'assets/hats/hat1.png', type: 'hat'),
-  Product(name: 'Hat 2', price: 500, imageUrl: 'assets/hats/hat2.png', type: 'hat'),
-  Product(name: 'Color 1', price: 1500, imageUrl: 'assets/colors/color_white.png', type: 'color'),
-  Product(name: 'Color 2', price: 1500, imageUrl: 'assets/colors/color_pink.png', type: 'color'),
-  // Adicione todos os outros produtos aqui
+    Product(name: 'Hat 1', price: 150, imageUrl: 'assets/hats/hat1.png', type: 'hat'),
+    Product(name: 'Hat 2', price: 100, imageUrl: 'assets/hats/hat2.png', type: 'hat'),
+    Product(name: 'Hat 3', price: 250, imageUrl: 'assets/hats/hat3.png', type: 'hat'),
+    Product(name: 'Hat 4', price: 300, imageUrl: 'assets/hats/hat4.png', type: 'hat'),
+    Product(name: 'Hat 5', price: 250, imageUrl: 'assets/hats/hat5.png', type: 'hat'),
+    Product(name: 'Hat 6', price: 50, imageUrl: 'assets/hats/hat6.png', type: 'hat'),
+    Product(name: 'Color 1', price: 500, imageUrl: 'assets/colors/color_green.png', type: 'color'),
+    Product(name: 'Color 2', price: 500, imageUrl: 'assets/colors/color_pink.png', type: 'color'),
+    Product(name: 'Color 3', price: 500, imageUrl: 'assets/colors/color_blue.png', type: 'color'),
+    Product(name: 'Color 4', price: 500, imageUrl: 'assets/colors/color_yellow.png', type: 'color'),
+    Product(name: 'Color 5', price: 500, imageUrl: 'assets/colors/color_light_pink.png', type: 'color'),
 ];
