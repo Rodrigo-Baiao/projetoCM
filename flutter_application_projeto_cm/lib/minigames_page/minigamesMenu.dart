@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_projeto_cm/color_game/color_game.dart';
+import 'package:flutter_application_projeto_cm/quiz_game/quiz_game.dart';
 import 'package:flutter_application_projeto_cm/minigames_page/minigame_app_bar.dart';
 
 
@@ -19,7 +20,7 @@ class MinigamesApp extends StatelessWidget {
 
 class HomePage extends StatelessWidget {
   final List<GameItem> games = [
-    GameItem('Quiz', 'assets/quiz.png', const QuizGame()),
+    GameItem('Quiz', 'assets/quiz.png', QuizGame()),
     GameItem('Clean House', 'assets/clean_house.png', const CleanHouseGame()),
     GameItem('Memory Game', 'assets/memory_game.png', const MemoryGame()),
     GameItem('Color Game', 'assets/color_game.png', ColorGame()),
@@ -104,22 +105,6 @@ class GameCard extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class QuizGame extends StatelessWidget {
-  const QuizGame({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Quiz Game'),
-      ),
-      body: const Center(
-        child: Text('Quiz Game Page'),
       ),
     );
   }
