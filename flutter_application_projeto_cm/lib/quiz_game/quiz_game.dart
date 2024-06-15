@@ -58,7 +58,8 @@ class _QuizGamePageState extends State<QuizGamePage> {
       if (isCorrect) {
         Sound.playLevelpassed(); // Reproduz o som de nível passado
         _showMoneyAnimation = true;
-        ghostSettings.money += 10;
+          ghostSettings.addMoney(10);
+
 
         Future.delayed(const Duration(seconds: 2), () {
           if (mounted) {

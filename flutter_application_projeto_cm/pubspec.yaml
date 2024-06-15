@@ -74,4 +74,9 @@ flutter:
     - assets/sound/clock.mp3
     - assets/sound/level_passed.mp3
     - assets/sound/level_failed.mp3
+    - assets/spooky_haunted_house.png
+    - assets/cobweb.png
+    - assets/dust.png
+    - assets/cleaning_tool_1.png
+    - assets/cleaning_tool_2.png
 

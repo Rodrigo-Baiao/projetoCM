@@ -94,6 +94,18 @@ class GhostSettings extends ChangeNotifier {
     return _purchasedProducts.contains(product);
   }
 
+   void addMoney(int amount) {
+    money += amount;
+    animationAmount = amount;
+    showMoneyAnimation = true;
+    notifyListeners();
+
+    Future.delayed(const Duration(seconds: 2), () {
+      showMoneyAnimation = false;
+      notifyListeners();
+    });
+  }
+
   void debitMoney(double price, BuildContext context) {
     if (money - price >= 0) {
       money -= price;

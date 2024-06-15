@@ -126,7 +126,7 @@ class _ColorGamePageState extends State<ColorGamePage> {
 
     setState(() {
       _showMoneyAnimation = true;
-      ghostSettings.money += 10; // Incrementa o dinheiro aqui
+      ghostSettings.addMoney(10);
       _level++;
       _countdown = 5;
       _startGame();
