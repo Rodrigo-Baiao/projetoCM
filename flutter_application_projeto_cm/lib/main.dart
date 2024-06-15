@@ -15,7 +15,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
 }
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,7 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              Image.asset('coin.png', width: 60, height: 60),
+                              Image(image: AssetImage('assets/coin.png'), width: 60, height: 60),
                               Text('$money'),
                             ],
                           ),
@@ -76,7 +76,7 @@ class HomeScreen extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(right: 40.0),
                             child: GestureDetector(
-                              child: Image.asset('settings_icon.png', width: 45, height: 45),
+                              child: Image(image: AssetImage('assets/settings_icon.png'), width: 45, height: 45),
                               onTap: () {
                                 Sound.clickSound();
                                 Navigator.push(
@@ -96,7 +96,7 @@ class HomeScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           GestureDetector(
-                            child: Image.asset('shop_icon.png', width: 70, height: 70),
+                            child: Image(image: AssetImage('assets/shop_icon.png'), width: 70, height: 70),
                             onTap: () {
                               Sound.clickSound();
                               Navigator.push(
@@ -106,7 +106,7 @@ class HomeScreen extends StatelessWidget {
                             },
                           ),
                           GestureDetector(
-                            child: Image.asset('map_icon.png', width: 120, height: 120),
+                            child: Image(image: AssetImage('assets/map_icon.png'), width: 120, height: 120),
                             onTap: () {
                               Sound.clickSound();
                             },
@@ -127,7 +127,7 @@ class HomeScreen extends StatelessWidget {
                                 child: Container(
                                   width: 200,
                                   height: 200,
-                                  decoration: const BoxDecoration(
+                                  decoration: BoxDecoration(
                                     image: DecorationImage(
                                       image: AssetImage('assets/windows/window1.png'),
                                       fit: BoxFit.cover,
@@ -144,14 +144,13 @@ class HomeScreen extends StatelessWidget {
                                       height: 350,
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
-                                          image:  AssetImage(ghostSettings.ghostImage),
+                                          image: AssetImage(ghostSettings.ghostImage),
                                           fit: BoxFit.cover,
                                         ),
                                       ),
                                     );
                                   },
                                   onAcceptWithDetails: (details) {
-                                   
                                     if (details.data == 'feed') {
                                       ghostSettings.feed();
                                     }
@@ -161,13 +160,18 @@ class HomeScreen extends StatelessWidget {
                               if (ghostSettings.hatImage.isNotEmpty)
                                 Positioned(
                                   top: 10,
-                                  child: Image.asset(
-                                    ghostSettings.hatImage,
-                                    width: 240,
-                                    height: 140,
-                                    fit: BoxFit.contain,
-                                  ),
+                                  child: Image(image: AssetImage(ghostSettings.hatImage), width: 240, height: 140, fit: BoxFit.contain),
                                 ),
+                              Positioned(
+                                top: 490,
+                                left: 80,
+                                child: MouseRegion(
+                                  onEnter: (_) {
+                                    // Implementar ação quando entrar na área de sujeira 1
+                                  },
+                                  child: Image(image: AssetImage('assets/dust.png'), width: 40, height: 40),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -183,16 +187,16 @@ class HomeScreen extends StatelessWidget {
                                 padding: const EdgeInsets.only(left: 20.0),
                                 child: Draggable<String>(
                                   data: 'feed',
-                                  feedback: Image.asset("lollipop_icon.png"),
+                                  feedback: Image(image: AssetImage('assets/lollipop_icon.png')),
                                   childWhenDragging: Container(),
-                                  child: Image.asset("lollipop_icon.png"),
+                                  child: Image(image: AssetImage('assets/lollipop_icon.png')),
                                 ),
                               ),
                               const Spacer(),
                               Padding(
                                 padding: const EdgeInsets.only(right: 20.0),
                                 child: GestureDetector(
-                                  child: Image.asset("shower_icon.png"),
+                                  child: Image(image: AssetImage('assets/shower_icon.png')),
                                   onTap: () {
                                     Sound.clickSound();
                                   },
@@ -205,7 +209,7 @@ class HomeScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               GestureDetector(
-                                child: Image.asset("game_controller.png"),
+                                child: Image(image: AssetImage('assets/game_controller.png')),
                                 onTap: () {
                                   Sound.clickSound();
                                   Navigator.push(
@@ -215,7 +219,7 @@ class HomeScreen extends StatelessWidget {
                                 },
                               ),
                               GestureDetector(
-                                child: Image.asset("customize_icon.png"),
+                                child: Image(image: AssetImage('assets/customize_icon.png')),
                                 onTap: () async {
                                   Sound.clickSound();
                                   final result = await Navigator.push(
