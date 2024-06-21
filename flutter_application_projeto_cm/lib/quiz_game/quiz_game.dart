@@ -56,7 +56,7 @@ class _QuizGamePageState extends State<QuizGamePage> {
       _selectedAnswer = answerText;
 
       if (isCorrect) {
-        Sound.playLevelpassed(); // Reproduz o som de nível passado
+        Sound.playLevelpassed(); 
         _showMoneyAnimation = true;
           ghostSettings.addMoney(10);
 
@@ -70,7 +70,7 @@ class _QuizGamePageState extends State<QuizGamePage> {
           }
         });
       } else {
-        Sound.playLevelFailed(); // Reproduz o som de nível falhado
+        Sound.playLevelFailed();
       }
     });
   }

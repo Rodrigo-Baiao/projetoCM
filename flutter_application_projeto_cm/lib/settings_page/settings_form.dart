@@ -4,9 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_application_projeto_cm/settings_page/authors_credits.dart';
-import 'package:flutter_application_projeto_cm/settings_page/change_password.dart';
 import 'package:flutter_application_projeto_cm/settings_page/fingerprint.dart';
-import 'package:flutter_application_projeto_cm/settings_page/sound_and_notifications.dart';
+import 'package:flutter_application_projeto_cm/settings_page/sound_switch.dart';
 import 'package:flutter_application_projeto_cm/settings_page/support_and_feedback.dart';
 
 
@@ -25,21 +24,7 @@ class _SettingsFormState extends State<SettingsForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(left: 56.0),
-            child: SoundNotificationSwitches(),
-          ),
-          SizedBox(height: 60),
-          SizedBox(
-            width: double.infinity,
-            child: Row(
-              children: [
-                Expanded(
-                  child: PasswordChangeWidget(),
-                ),
-              ],
-            ),
-          ),
+          SoundSwitch(),
           SizedBox(height: 40),
           SizedBox(
             width: double.infinity,

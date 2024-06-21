@@ -30,7 +30,6 @@ class _CleaningMinigameState extends State<CleaningMinigame> {
       isDusty1 = false;
       checkAllCleaned();
     });
-    Sound.clickSound(); // Play sound effect
   }
 
   void cleanDust2() {
@@ -38,7 +37,6 @@ class _CleaningMinigameState extends State<CleaningMinigame> {
       isDusty2 = false;
       checkAllCleaned();
     });
-    Sound.clickSound(); // Play sound effect
   }
 
   void cleanDust3() {
@@ -46,7 +44,6 @@ class _CleaningMinigameState extends State<CleaningMinigame> {
       isDusty3 = false;
       checkAllCleaned();
     });
-    Sound.clickSound(); // Play sound effect
   }
 
   void cleanDust4() {
@@ -54,7 +51,6 @@ class _CleaningMinigameState extends State<CleaningMinigame> {
       isDusty4 = false;
       checkAllCleaned();
     });
-    Sound.clickSound(); // Play sound effect
   }
 
   void cleanCobweb1() {
@@ -62,7 +58,6 @@ class _CleaningMinigameState extends State<CleaningMinigame> {
       isCobwebbed1 = false;
       checkAllCleaned();
     });
-    Sound.clickSound(); // Play sound effect
   }
 
   void cleanCobweb2() {
@@ -70,7 +65,6 @@ class _CleaningMinigameState extends State<CleaningMinigame> {
       isCobwebbed2 = false;
       checkAllCleaned();
     });
-    Sound.clickSound(); // Play sound effect
   }
 
   void cleanCobweb3() {
@@ -78,7 +72,6 @@ class _CleaningMinigameState extends State<CleaningMinigame> {
       isCobwebbed3 = false;
       checkAllCleaned();
     });
-    Sound.clickSound(); // Play sound effect
   }
 
   void cleanCobweb4() {
@@ -86,7 +79,6 @@ class _CleaningMinigameState extends State<CleaningMinigame> {
       isCobwebbed4 = false;
       checkAllCleaned();
     });
-    Sound.clickSound(); // Play sound effect
   }
 
   void checkAllCleaned() {
@@ -96,6 +88,7 @@ class _CleaningMinigameState extends State<CleaningMinigame> {
       ghostSettings.addMoney(10);
       setState(() {
         showMoneyAnimation = true;
+        Sound.playLevelpassed();
       });
       Future.delayed(const Duration(seconds: 2), () {
         if (mounted) {
