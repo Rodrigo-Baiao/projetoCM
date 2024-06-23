@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_projeto_cm/main.dart';
 import 'package:flutter_application_projeto_cm/utils/show_snackbar.dart';
 
 import '../login_page/login_page.dart';
@@ -11,6 +12,13 @@ class Auth {
   User? get currentUser => _firebaseAuth.currentUser;
 
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
+
+  void updateUserInfo(String name, String lastName, String photo) {
+    String username = "$name $lastName";
+    currentUser!.updateProfile(displayName: username, photoURL: photo);
+    String? aux1 = currentUser!.displayName;
+    print("Updated user info: $aux1");
+  }
 
   Future<void> signInWithEmailAndPassword({
     required String email,
@@ -24,7 +32,7 @@ class Auth {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => const ProfileCustomizationScreen()));
+              builder: (context) => const HomeScreen()));
     } on FirebaseAuthException catch (e) {
       print("Error code = " + e.code);
       if (e.code == 'invalid-credential') {

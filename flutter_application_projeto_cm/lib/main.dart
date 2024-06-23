@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter_application_projeto_cm/customize_page/customize_page.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_application_projeto_cm/ghost/ghost.dart';
 import 'package:flutter_application_projeto_cm/ghost/money.dart';
 import 'package:flutter_application_projeto_cm/light_sensor.dart';
 import 'package:flutter_application_projeto_cm/map/map_screen.dart';
+import 'package:flutter_application_projeto_cm/login_page/login_page.dart';
 import 'package:flutter_application_projeto_cm/minigames_page/minigamesMenu.dart';
 import 'package:flutter_application_projeto_cm/profile/profile.dart';
 import 'package:flutter_application_projeto_cm/settings_page/settings_page.dart';
@@ -13,7 +15,10 @@ import 'package:flutter_application_projeto_cm/settings_page/sound.dart';
 import 'package:flutter_application_projeto_cm/shop_page/shop.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   AwesomeNotifications().initialize(
     null,
     [
@@ -25,6 +30,7 @@ void main() {
     ],
     debug: true,
   );
+
   runApp(const MyApp());
 }
 
@@ -74,7 +80,7 @@ class _SplashState extends State<Splash> {
     await Future.delayed(const Duration(seconds: 3), () {});
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => const HomeScreen()),
+      MaterialPageRoute(builder: (context) => const LoginPage()),
     );
   }
 
@@ -106,9 +112,7 @@ class _SplashState extends State<Splash> {
                   ),
                 ),
               ),
-              SizedBox(
-                  height:
-                      200), // Add some space between the progress bar and the bottom of the screen
+              SizedBox(height: 200),
             ],
           ),
         ],

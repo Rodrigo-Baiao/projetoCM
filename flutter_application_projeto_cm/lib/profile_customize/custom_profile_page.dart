@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:file_selector/file_selector.dart';
+import 'package:flutter_application_projeto_cm/firebase_auth/auth.dart';
 
 class ProfileCustomizationScreen extends StatelessWidget {
   const ProfileCustomizationScreen({super.key});
@@ -10,6 +11,24 @@ class ProfileCustomizationScreen extends StatelessWidget {
       // Handle the selected directory path
       print('Selected directory: $directoryPath');
     }
+  }
+
+  Widget _buildInput(
+      IconData icon, String hintTxt, TextEditingController controller,
+      {isPassword = true}) {
+    return TextFormField(
+      controller: controller,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: Colors.white,
+        prefixIcon: Icon(icon),
+        hintText: hintTxt,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+        ),
+      ),
+      obscureText: isPassword,
+    );
   }
 
   @override
@@ -95,7 +114,7 @@ class ProfileCustomizationScreen extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  // Add your next button functionality here
+                  Auth().updateUserInfo('abc', '1', 'adasd');
                 },
                 style: ElevatedButton.styleFrom(
                   padding:

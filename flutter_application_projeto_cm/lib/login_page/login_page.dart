@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_projeto_cm/firebase_auth/auth.dart';
+import 'package:flutter_application_projeto_cm/minigames_page/minigamesMenu.dart';
 import 'package:flutter_application_projeto_cm/register_page/register_page.dart';
 import 'package:flutter_application_projeto_cm/utils/show_snackbar.dart';
 
@@ -78,7 +79,8 @@ class _LoginPageState extends State<LoginPage> {
         decoration: BoxDecoration(
             border: Border.all(color: Color(_darkBlue), width: 3),
             shape: BoxShape.circle),
-        child: const Icon(Icons.fingerprint, color: Color(0xFF333333), size: 80),
+        child:
+            const Icon(Icons.fingerprint, color: Color(0xFF333333), size: 80),
       ),
     );
   }
@@ -126,13 +128,6 @@ class _LoginPageState extends State<LoginPage> {
   Widget _logitBtn() {
     return ElevatedButton(
       onPressed: () {
-        /*
-        debugPrint("Username: ${usernameController.text}");
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const ProfileCustomizationScreen()));
-        */
         if (usernameController.text.isEmpty) {
           ShowSnackBar.showSnackbar(
             context: context,
@@ -181,11 +176,11 @@ class _LoginPageState extends State<LoginPage> {
         },
         child: RichText(
           text: const TextSpan(
-            text: 'Already have an account? ',
+            text: 'Dont have an account? ',
             style: TextStyle(color: Colors.black),
             children: [
               TextSpan(
-                text: 'Log in',
+                text: 'Register',
                 style: TextStyle(
                   color: Color(0xFF002F6C),
                   fontWeight: FontWeight.bold,

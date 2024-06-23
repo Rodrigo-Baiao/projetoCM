@@ -30,7 +30,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           ),
           const SizedBox(height: 20),
           Image.asset(
-            'assets/login.png', // Replace with your image asset
+            'assets/login.png', 
             height: 100,
           ),
           const SizedBox(height: 20),
@@ -88,7 +88,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           }
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF002F6C), // Dark blue button color
+          backgroundColor: const Color(0xFF002F6C), 
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
           ),
@@ -133,7 +133,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFD1E3F8), // Light blue background color
+      backgroundColor: const Color(0xFFD1E3F8),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
