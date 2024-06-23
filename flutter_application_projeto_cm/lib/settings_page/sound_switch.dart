@@ -4,16 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_projeto_cm/settings_page/sound.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SoundNotificationSwitches extends StatefulWidget {
-  const SoundNotificationSwitches({super.key});
+class SoundSwitch extends StatefulWidget {
+  const SoundSwitch({super.key});
 
   @override
-  _SoundNotificationSwitchesState createState() => _SoundNotificationSwitchesState();
+  _SoundSwitchState createState() => _SoundSwitchState();
 }
 
-class _SoundNotificationSwitchesState extends State<SoundNotificationSwitches> {
+class _SoundSwitchState extends State<SoundSwitch> {
   late bool _soundEnabled = false;
-  bool _notificationsEnabled = false;
 
   @override
   void initState() {
@@ -25,7 +24,6 @@ class _SoundNotificationSwitchesState extends State<SoundNotificationSwitches> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       _soundEnabled = prefs.getBool('soundEnabled') ?? false;
-      _notificationsEnabled = prefs.getBool('notificationsEnabled') ?? false;
     });
     if (_soundEnabled) {
       await Sound.playSound();
@@ -49,13 +47,6 @@ class _SoundNotificationSwitchesState extends State<SoundNotificationSwitches> {
     await _savePreference('soundEnabled', _soundEnabled);
   }
 
-  void _toggleNotifications(bool value) async {
-    setState(() {
-      _notificationsEnabled = value;
-    });
-    await _savePreference('notificationsEnabled', _notificationsEnabled);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -69,18 +60,6 @@ class _SoundNotificationSwitchesState extends State<SoundNotificationSwitches> {
             child: Switch(
               value: _soundEnabled,
               onChanged: _toggleSound,
-              activeColor: const Color.fromARGB(246, 179, 206, 222),
-            ),
-          ),
-        ),
-        const Icon(Icons.notifications),
-        const SizedBox(width: 8),
-        Expanded(
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Switch(
-              value: _notificationsEnabled,
-              onChanged: _toggleNotifications,
               activeColor: const Color.fromARGB(246, 179, 206, 222),
             ),
           ),

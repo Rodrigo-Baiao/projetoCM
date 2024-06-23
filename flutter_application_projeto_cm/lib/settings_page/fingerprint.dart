@@ -20,7 +20,7 @@ class _FingerprintWidgetState extends State<FingerprintWidget> {
           children: <Widget>[
             const Icon(Icons.fingerprint),
             const SizedBox(width: 8),
-            const Text('Change fingerprint',
+            const Text('Add fingerprint',
                 style: TextStyle(fontSize: 14),
             ),
             const SizedBox(width: 20),

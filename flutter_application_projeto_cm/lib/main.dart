@@ -3,6 +3,7 @@ import 'package:flutter_application_projeto_cm/customize_page/customize_page.dar
 import 'package:flutter_application_projeto_cm/ghost/feed.dart';
 import 'package:flutter_application_projeto_cm/ghost/ghost.dart';
 import 'package:flutter_application_projeto_cm/ghost/money.dart';
+import 'package:flutter_application_projeto_cm/light_sensor.dart';
 import 'package:flutter_application_projeto_cm/minigames_page/minigamesMenu.dart';
 import 'package:flutter_application_projeto_cm/profile/profile.dart';
 import 'package:flutter_application_projeto_cm/settings_page/settings_page.dart';
@@ -19,24 +20,95 @@ class MyApp extends StatelessWidget {
 
   @override 
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => GhostSettings()),
-      ],
-      child: const MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: HomeScreen(),
-      ),
-    );
+    try {
+      return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => GhostSettings()),
+          ChangeNotifierProvider(create: (_) => LightSensorr()),
+        ],
+        child: const MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: HomeScreen(),
+        ),
+      );
+    } catch (e) {
+      return const MaterialApp(
+        home: Scaffold(
+          body: Center(
+            child: Text('Erro ao iniciar o aplicativo'),
+          ),
+        ),
+      );
+    }
   }
 }
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  bool isDusty1 = true;
+  bool isDusty2 = true;
+  bool isDusty3 = true;
+  bool isDraggingShower = false;
+
+  @override
+  void initState() {
+    super.initState();
+    startDustResetTimer();
+  }
+
+  void startDustResetTimer() {
+    Future.delayed(const Duration(minutes: 2), () {
+      setState(() {
+        isDusty1 = true;
+        isDusty2 = true;
+        isDusty3 = true;
+      });
+      startDustResetTimer();
+    });
+  }
+
+  void cleanDust1() {
+    setState(() {
+      isDusty1 = false;
+      checkAllCleaned();
+    });
+  }
+
+  void cleanDust2() {
+    setState(() {
+      isDusty2 = false;
+      checkAllCleaned();
+    });
+  }
+
+  void cleanDust3() {
+    setState(() {
+      isDusty3 = false;
+      checkAllCleaned();
+    });
+  }
+
+  void checkAllCleaned() {
+    if (!isDusty1 && !isDusty2 && !isDusty3) {
+      final ghostSettings = Provider.of<GhostSettings>(context, listen: false);
+      ghostSettings.addMoney(30);
+      setState(() {
+        ghostSettings.showMoneyAnimation = true;
+        Sound.playLevelpassed();
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       backgroundColor: Colors.lightBlue[50],
       body: SafeArea(
         child: Consumer<GhostSettings>(
@@ -48,6 +120,7 @@ class HomeScreen extends StatelessWidget {
             });
 
             return Stack(
+             
               children: [
                 Column(
                   children: [
@@ -124,15 +197,19 @@ class HomeScreen extends StatelessWidget {
                               Positioned(
                                 top: 0,
                                 right: 50,
-                                child: Container(
-                                  width: 200,
-                                  height: 200,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: AssetImage('assets/windows/window1.png'),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
+                                child: Consumer<LightSensorr>(
+                                  builder: (context, lightSensor, _) {
+                                    return Container(
+                                      width: 200,
+                                      height: 200,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: AssetImage(lightSensor.windowImage),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    );
+                                  },
                                 ),
                               ),
                               Positioned(
@@ -162,16 +239,39 @@ class HomeScreen extends StatelessWidget {
                                   top: 10,
                                   child: Image(image: AssetImage(ghostSettings.hatImage), width: 240, height: 140, fit: BoxFit.contain),
                                 ),
-                              Positioned(
-                                top: 490,
-                                left: 80,
-                                child: MouseRegion(
-                                  onEnter: (_) {
-                                    // Implementar ação quando entrar na área de sujeira 1
-                                  },
-                                  child: Image(image: AssetImage('assets/dust.png'), width: 40, height: 40),
+                              if(isDusty1)
+                                Positioned(
+                                  top: 100,
+                                  left: 160,
+                                  child: MouseRegion(
+                                    onEnter: (_) {
+                                      if (isDraggingShower) cleanDust1();
+                                    },
+                                    child: Image.asset('assets/dust.png', width: 40, height: 40),
+                                  ),),
+                                
+                              if (isDusty2)
+                                Positioned(
+                                  top: 230,
+                                  left: 290,
+                                  child: MouseRegion(
+                                    onEnter: (_) {
+                                      if (isDraggingShower) cleanDust2();
+                                    },
+                                    child: Image.asset('assets/dust.png', width: 40, height: 40),
+                                  ),
                                 ),
-                              ),
+                              if (isDusty3)
+                                Positioned(
+                                  top: 300,
+                                  left: 180,
+                                  child: MouseRegion(
+                                    onEnter: (_) {
+                                      if (isDraggingShower) cleanDust3();
+                                    },
+                                    child: Image.asset('assets/dust.png', width: 40, height: 40),
+                                  ),
+                                ),
                             ],
                           ),
                         ),
@@ -195,10 +295,24 @@ class HomeScreen extends StatelessWidget {
                               const Spacer(),
                               Padding(
                                 padding: const EdgeInsets.only(right: 20.0),
-                                child: GestureDetector(
-                                  child: Image(image: AssetImage('assets/shower_icon.png')),
-                                  onTap: () {
-                                    Sound.clickSound();
+                                child: Draggable<String>(
+                                feedback: Image(image: AssetImage('assets/shower_icon.png')),
+                                childWhenDragging: Container(),
+                                child: Image(image: AssetImage('assets/shower_icon.png')),
+                                onDragStarted: () {
+                                    setState(() {
+                                      isDraggingShower = true;
+                                    });
+                                  },
+                                  onDraggableCanceled: (_, __) {
+                                    setState(() {
+                                      isDraggingShower = false;
+                                    });
+                                  },
+                                  onDragEnd: (details) {
+                                    setState(() {
+                                      isDraggingShower = false;
+                                    });
                                   },
                                 ),
                               ),

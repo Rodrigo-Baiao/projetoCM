@@ -129,6 +129,10 @@ class GhostSettings extends ChangeNotifier {
       );
     }
   }
+
+  void resetCleanDust() {
+    
+  }
 }
 
 class Product {
