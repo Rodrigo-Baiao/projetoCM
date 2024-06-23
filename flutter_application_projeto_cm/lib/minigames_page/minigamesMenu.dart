@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_projeto_cm/color_game/color_game.dart';
+import 'package:flutter_application_projeto_cm/memory_game/memory_game.dart';
 import 'package:flutter_application_projeto_cm/quiz_game/quiz_game.dart';
 import 'package:flutter_application_projeto_cm/minigames_page/minigame_app_bar.dart';
 import 'package:flutter_application_projeto_cm/clean_game/cleaning_minigame.dart'; // Import the new file
@@ -20,7 +21,7 @@ class HomePage extends StatelessWidget {
   final List<GameItem> games = [
     GameItem('Quiz', 'assets/quiz.png', QuizGame()),
     GameItem('Clean House', 'assets/clean_house.png', const CleaningMinigame()), // Update to new widget
-    GameItem('Memory Game', 'assets/memory_game.png', const MemoryGame()),
+    GameItem('Memory Game', 'assets/memory_game.png',  MemoryGame()),
     GameItem('Color Game', 'assets/color_game.png', ColorGame()),
   ];
 
@@ -108,18 +109,3 @@ class GameCard extends StatelessWidget {
   }
 }
 
-class MemoryGame extends StatelessWidget {
-  const MemoryGame({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Memory Game'),
-      ),
-      body: const Center(
-        child: Text('Memory Game Page'),
-      ),
-    );
-  }
-}
