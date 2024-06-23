@@ -66,15 +66,37 @@ class _SplashState extends State<Splash> {
   }
 
   @override
-  Widget build(BuildContext context) {
+    Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/image.png'),
-            fit: BoxFit.cover,
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('/image.png'),
+                fit: BoxFit.cover,
+                alignment: Alignment.center
+              ),
+            ),
           ),
-        ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(26.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  child: LinearProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.blueAccent),
+                    backgroundColor: Colors.white,
+                    minHeight: 20.0,
+                  ),
+                ),
+              ),
+              SizedBox(height: 200), // Add some space between the progress bar and the bottom of the screen
+            ],
+          ),
+        ],
       ),
     );
   }
