@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter_application_projeto_cm/customize_page/customize_page.dart';
@@ -13,9 +14,12 @@ import 'package:flutter_application_projeto_cm/settings_page/sound.dart';
 import 'package:flutter_application_projeto_cm/shop_page/shop.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   AwesomeNotifications().initialize(
-    null, 
+    null,
     [
       NotificationChannel(
         channelKey: 'Basic_Channel',
@@ -25,6 +29,7 @@ void main() {
     ],
     debug: true,
   );
+
   runApp(const MyApp());
 }
 
@@ -79,17 +84,16 @@ class _SplashState extends State<Splash> {
   }
 
   @override
-    Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/image.png'),
-                fit: BoxFit.cover,
-                alignment: Alignment.center
-              ),
+                  image: AssetImage('assets/image.png'),
+                  fit: BoxFit.cover,
+                  alignment: Alignment.center),
             ),
           ),
           Column(
@@ -100,13 +104,14 @@ class _SplashState extends State<Splash> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   child: LinearProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.blueAccent),
+                    valueColor:
+                        AlwaysStoppedAnimation<Color>(Colors.blueAccent),
                     backgroundColor: Colors.white,
                     minHeight: 20.0,
                   ),
                 ),
               ),
-              SizedBox(height: 200), 
+              SizedBox(height: 200),
             ],
           ),
         ],
@@ -131,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    AwesomeNotifications().isNotificationAllowed().then((isAllowed){
+    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
       if (!isAllowed) {
         AwesomeNotifications().requestPermissionToSendNotifications();
       }
@@ -232,13 +237,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
+                      padding: const EdgeInsets.only(
+                          top: 10.0, left: 10.0, right: 10.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
                             children: [
-                              Image(image: AssetImage('assets/coin.png'), width: 60, height: 60),
+                              Image(
+                                  image: AssetImage('assets/coin.png'),
+                                  width: 60,
+                                  height: 60),
                               Text('$money'),
                             ],
                           ),
@@ -248,21 +257,26 @@ class _HomeScreenState extends State<HomeScreen> {
                             onPressed: () {
                               Sound.clickSound();
                               Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const ProfileApp())
-                              );
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ProfileApp()));
                             },
                           ),
                           Padding(
                             padding: const EdgeInsets.only(right: 40.0),
                             child: GestureDetector(
-                              child: Image(image: AssetImage('assets/settings_icon.png'), width: 45, height: 45),
+                              child: Image(
+                                  image: AssetImage('assets/settings_icon.png'),
+                                  width: 45,
+                                  height: 45),
                               onTap: () {
                                 Sound.clickSound();
                                 Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => const SettingsPage())
-                                );
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const SettingsPage()));
                               },
                             ),
                           ),
@@ -276,17 +290,23 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           GestureDetector(
-                            child: Image(image: AssetImage('assets/shop_icon.png'), width: 70, height: 70),
+                            child: Image(
+                                image: AssetImage('assets/shop_icon.png'),
+                                width: 70,
+                                height: 70),
                             onTap: () {
                               Sound.clickSound();
                               Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const ShopApp())
-                              );
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const ShopApp()));
                             },
                           ),
                           GestureDetector(
-                            child: Image(image: AssetImage('assets/map_icon.png'), width: 120, height: 120),
+                            child: Image(
+                                image: AssetImage('assets/map_icon.png'),
+                                width: 120,
+                                height: 120),
                             onTap: () {
                               Sound.clickSound();
                             },
@@ -311,7 +331,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                       height: 200,
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
-                                          image: AssetImage(lightSensor.windowImage),
+                                          image: AssetImage(
+                                              lightSensor.windowImage),
                                           fit: BoxFit.cover,
                                         ),
                                       ),
@@ -322,13 +343,15 @@ class _HomeScreenState extends State<HomeScreen> {
                               Positioned(
                                 top: 70,
                                 child: DragTarget<String>(
-                                  builder: (context, candidateData, rejectedData) {
+                                  builder:
+                                      (context, candidateData, rejectedData) {
                                     return Container(
                                       width: 350,
                                       height: 350,
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
-                                          image: AssetImage(ghostSettings.ghostImage),
+                                          image: AssetImage(
+                                              ghostSettings.ghostImage),
                                           fit: BoxFit.cover,
                                         ),
                                       ),
@@ -344,7 +367,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               if (ghostSettings.hatImage.isNotEmpty)
                                 Positioned(
                                   top: 10,
-                                  child: Image(image: AssetImage(ghostSettings.hatImage), width: 240, height: 140, fit: BoxFit.contain),
+                                  child: Image(
+                                      image: AssetImage(ghostSettings.hatImage),
+                                      width: 240,
+                                      height: 140,
+                                      fit: BoxFit.contain),
                                 ),
                               if (isDusty1)
                                 Positioned(
@@ -354,8 +381,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                     onAccept: (data) {
                                       if (data == 'shower_icon') cleanDust1();
                                     },
-                                    builder: (context, candidateData, rejectedData) {
-                                      return Image.asset('assets/dust.png', width: 40, height: 40);
+                                    builder:
+                                        (context, candidateData, rejectedData) {
+                                      return Image.asset('assets/dust.png',
+                                          width: 40, height: 40);
                                     },
                                   ),
                                 ),
@@ -367,8 +396,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                     onAccept: (data) {
                                       if (data == 'shower_icon') cleanDust2();
                                     },
-                                    builder: (context, candidateData, rejectedData) {
-                                      return Image.asset('assets/dust.png', width: 40, height: 40);
+                                    builder:
+                                        (context, candidateData, rejectedData) {
+                                      return Image.asset('assets/dust.png',
+                                          width: 40, height: 40);
                                     },
                                   ),
                                 ),
@@ -380,8 +411,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                     onAccept: (data) {
                                       if (data == 'shower_icon') cleanDust3();
                                     },
-                                    builder: (context, candidateData, rejectedData) {
-                                      return Image.asset('assets/dust.png', width: 40, height: 40);
+                                    builder:
+                                        (context, candidateData, rejectedData) {
+                                      return Image.asset('assets/dust.png',
+                                          width: 40, height: 40);
                                     },
                                   ),
                                 ),
@@ -400,11 +433,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                 padding: const EdgeInsets.only(left: 20.0),
                                 child: Draggable<String>(
                                   data: 'feed',
-                                  feedback: Image(image: AssetImage('assets/lollipop_icon.png')),
+                                  feedback: Image(
+                                      image: AssetImage(
+                                          'assets/lollipop_icon.png')),
                                   childWhenDragging: Container(),
-                                  child: Image(image: AssetImage('assets/lollipop_icon.png')),
+                                  child: Image(
+                                      image: AssetImage(
+                                          'assets/lollipop_icon.png')),
                                   onDragStarted: resetInactivityTimer,
-                                  onDragEnd: (details) => resetInactivityTimer(),
+                                  onDragEnd: (details) =>
+                                      resetInactivityTimer(),
                                 ),
                               ),
                               const Spacer(),
@@ -412,9 +450,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 padding: const EdgeInsets.only(right: 20.0),
                                 child: Draggable<String>(
                                   data: 'shower_icon',
-                                  feedback: Image(image: AssetImage('assets/shower_icon.png')),
+                                  feedback: Image(
+                                      image:
+                                          AssetImage('assets/shower_icon.png')),
                                   childWhenDragging: Container(),
-                                  child: Image(image: AssetImage('assets/shower_icon.png')),
+                                  child: Image(
+                                      image:
+                                          AssetImage('assets/shower_icon.png')),
                                   onDragStarted: () {
                                     setState(() {
                                       isDraggingShower = true;
@@ -442,27 +484,35 @@ class _HomeScreenState extends State<HomeScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               GestureDetector(
-                                child: Image(image: AssetImage('assets/game_controller.png')),
+                                child: Image(
+                                    image: AssetImage(
+                                        'assets/game_controller.png')),
                                 onTap: () {
                                   Sound.clickSound();
                                   resetInactivityTimer();
                                   Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => const MinigamesApp())
-                                  );
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const MinigamesApp()));
                                 },
                               ),
                               GestureDetector(
-                                child: Image(image: AssetImage('assets/customize_icon.png')),
+                                child: Image(
+                                    image: AssetImage(
+                                        'assets/customize_icon.png')),
                                 onTap: () async {
                                   Sound.clickSound();
                                   final result = await Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => const Customize())
-                                  );
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const Customize()));
                                   if (result != null) {
-                                    ghostSettings.setGhostImage(result['selectedImage']);
-                                    ghostSettings.setHatImage(result['hatImage']);
+                                    ghostSettings
+                                        .setGhostImage(result['selectedImage']);
+                                    ghostSettings
+                                        .setHatImage(result['hatImage']);
                                   }
                                   resetInactivityTimer();
                                 },
@@ -476,15 +526,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 if (ghostSettings.showMoneyAnimation)
                   Positioned(
-                    top: 200, 
-                    left: MediaQuery.of(context).size.width / 2 - 30, 
-                    child: MoneyAnimation(amount: ghostSettings.animationAmount),
+                    top: 200,
+                    left: MediaQuery.of(context).size.width / 2 - 30,
+                    child:
+                        MoneyAnimation(amount: ghostSettings.animationAmount),
                   ),
                 if (ghostSettings.showFeedLimitMessage)
                   Positioned(
-                    top: 200, 
-                    left: MediaQuery.of(context).size.width / 2 - 30, 
-                    child: const FeedLimitAnimation(phrase: "Não é possível alimentar mais"),
+                    top: 200,
+                    left: MediaQuery.of(context).size.width / 2 - 30,
+                    child: const FeedLimitAnimation(
+                        phrase: "Não é possível alimentar mais"),
                   ),
               ],
             );
