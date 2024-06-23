@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter_application_projeto_cm/customize_page/customize_page.dart';
 import 'package:flutter_application_projeto_cm/ghost/feed.dart';
 import 'package:flutter_application_projeto_cm/ghost/ghost.dart';
@@ -12,6 +13,17 @@ import 'package:flutter_application_projeto_cm/shop_page/shop.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  AwesomeNotifications().initialize(
+    null, 
+    [
+      NotificationChannel(
+        channelKey: 'Basic_Channel',
+        channelName: 'Basic Notifications',
+        channelDescription: 'Notification channel for basic tests',
+      ),
+    ],
+    debug: true,
+  );
   runApp(const MyApp());
 }
 
@@ -73,7 +85,7 @@ class _SplashState extends State<Splash> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('/image.png'),
+                image: AssetImage('assets/image.png'),
                 fit: BoxFit.cover,
                 alignment: Alignment.center
               ),
@@ -114,11 +126,19 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isDusty2 = true;
   bool isDusty3 = true;
   bool isDraggingShower = false;
+  late DateTime lastInteractionTime;
 
   @override
   void initState() {
+    AwesomeNotifications().isNotificationAllowed().then((isAllowed){
+      if (!isAllowed) {
+        AwesomeNotifications().requestPermissionToSendNotifications();
+      }
+    });
     super.initState();
     startDustResetTimer();
+    lastInteractionTime = DateTime.now();
+    startInactivityTimer();
   }
 
   void startDustResetTimer() {
@@ -136,6 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       isDusty1 = false;
       checkAllCleaned();
+      resetInactivityTimer();
     });
   }
 
@@ -143,6 +164,7 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       isDusty2 = false;
       checkAllCleaned();
+      resetInactivityTimer();
     });
   }
 
@@ -150,6 +172,7 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       isDusty3 = false;
       checkAllCleaned();
+      resetInactivityTimer();
     });
   }
 
@@ -162,6 +185,32 @@ class _HomeScreenState extends State<HomeScreen> {
         Sound.playLevelpassed();
       });
     }
+  }
+
+  void startInactivityTimer() {
+    Future.delayed(const Duration(minutes: 1), () {
+      if (DateTime.now().difference(lastInteractionTime).inMinutes >= 1) {
+        sendInactivityNotification();
+      }
+      startInactivityTimer();
+    });
+  }
+
+  void resetInactivityTimer() {
+    setState(() {
+      lastInteractionTime = DateTime.now();
+    });
+  }
+
+  void sendInactivityNotification() {
+    AwesomeNotifications().createNotification(
+      content: NotificationContent(
+        id: 10,
+        channelKey: 'Basic_Channel',
+        title: 'Spook está com saudades suas!',
+        body: 'Venha cuidar do seu amigo fantasma!',
+      ),
+    );
   }
 
   @override
@@ -353,6 +402,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   feedback: Image(image: AssetImage('assets/lollipop_icon.png')),
                                   childWhenDragging: Container(),
                                   child: Image(image: AssetImage('assets/lollipop_icon.png')),
+                                  onDragStarted: resetInactivityTimer,
+                                  onDragEnd: (details) => resetInactivityTimer(),
                                 ),
                               ),
                               const Spacer(),
@@ -367,16 +418,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                     setState(() {
                                       isDraggingShower = true;
                                     });
+                                    resetInactivityTimer();
                                   },
                                   onDraggableCanceled: (_, __) {
                                     setState(() {
                                       isDraggingShower = false;
                                     });
+                                    resetInactivityTimer();
                                   },
                                   onDragEnd: (details) {
                                     setState(() {
                                       isDraggingShower = false;
                                     });
+                                    resetInactivityTimer();
                                   },
                                 ),
                               ),
@@ -390,6 +444,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: Image(image: AssetImage('assets/game_controller.png')),
                                 onTap: () {
                                   Sound.clickSound();
+                                  resetInactivityTimer();
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(builder: (context) => const MinigamesApp())
@@ -408,6 +463,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ghostSettings.setGhostImage(result['selectedImage']);
                                     ghostSettings.setHatImage(result['hatImage']);
                                   }
+                                  resetInactivityTimer();
                                 },
                               ),
                             ],
