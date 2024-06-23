@@ -6,7 +6,6 @@ import 'package:flutter_application_projeto_cm/ghost/feed.dart';
 import 'package:flutter_application_projeto_cm/ghost/ghost.dart';
 import 'package:flutter_application_projeto_cm/ghost/money.dart';
 import 'package:flutter_application_projeto_cm/light_sensor.dart';
-import 'package:flutter_application_projeto_cm/map/map_screen.dart';
 import 'package:flutter_application_projeto_cm/login_page/login_page.dart';
 import 'package:flutter_application_projeto_cm/minigames_page/minigamesMenu.dart';
 import 'package:flutter_application_projeto_cm/profile/profile.dart';
@@ -310,11 +309,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 height: 120),
                             onTap: () {
                               Sound.clickSound();
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const MapScreen()),
-                              );
                             },
                           ),
                         ],
