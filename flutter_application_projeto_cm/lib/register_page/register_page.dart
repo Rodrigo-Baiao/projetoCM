@@ -30,7 +30,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           ),
           const SizedBox(height: 20),
           Image.asset(
-            'lib/src/assets/login.png', // Replace with your image asset
+            'assets/login.png', // Replace with your image asset
             height: 100,
           ),
           const SizedBox(height: 20),

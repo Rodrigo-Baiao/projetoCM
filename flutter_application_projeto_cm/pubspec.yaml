@@ -16,6 +16,7 @@ dependencies:
   firebase_auth: ^5.1.0
   local_auth: ^2.1.6
   file_selector: ^1.0.3
+  firebase_core: ^3.1.0
 
 
 dev_dependencies:
@@ -91,3 +92,5 @@ flutter:
     - assets/cleaning_tool_2.png
     - assets/image.png
     - assets/logo.png
+    - assets/login.png
+    - assets/Profile_Ghost.png

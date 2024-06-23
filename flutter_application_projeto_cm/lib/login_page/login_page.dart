@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
         color: Color(_lightBlue),
       ),
       child: Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Color(0xFFD1E3F8),
         body: _page(),
       ),
     );
@@ -61,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
       decoration: BoxDecoration(
           border: Border.all(color: Color(_darkBlue), width: 3),
           shape: BoxShape.circle),
-      child: const Icon(Icons.person, color: Colors.white, size: 120),
+      child: const Icon(Icons.person, color: Color(0xFF333333), size: 120),
     );
   }
 
@@ -78,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
         decoration: BoxDecoration(
             border: Border.all(color: Color(_darkBlue), width: 3),
             shape: BoxShape.circle),
-        child: const Icon(Icons.fingerprint, color: Colors.white, size: 80),
+        child: const Icon(Icons.fingerprint, color: Color(0xFF333333), size: 80),
       ),
     );
   }
@@ -91,11 +91,13 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     return TextFormField(
-      style: const TextStyle(color: Colors.white, fontSize: 18),
+      style: const TextStyle(color: Color(0xFF333333), fontSize: 18),
       controller: controller,
       decoration: InputDecoration(
+        filled: true,
+        fillColor: Colors.white,
         hintText: hintText,
-        hintStyle: const TextStyle(color: Color.fromRGBO(255, 255, 255, .7)),
+        hintStyle: const TextStyle(color: Color(0xFF333333)),
         enabledBorder: border,
         focusedBorder: border,
       ),

@@ -45,7 +45,7 @@ class ProfileCustomizationScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'lib/src/assets/Profile_Ghost.png',
+                    'assets/Profile_Ghost.png',
                     height: 70,
                   ),
                   const SizedBox(
