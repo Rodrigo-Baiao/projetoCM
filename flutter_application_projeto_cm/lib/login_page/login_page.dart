@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_projeto_cm/firebase_auth/auth.dart';
+import 'package:flutter_application_projeto_cm/minigames_page/minigamesMenu.dart';
 import 'package:flutter_application_projeto_cm/register_page/register_page.dart';
 import 'package:flutter_application_projeto_cm/utils/show_snackbar.dart';
 
@@ -126,6 +127,10 @@ class _LoginPageState extends State<LoginPage> {
   Widget _logitBtn() {
     return ElevatedButton(
       onPressed: () {
+        Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) =>  HomePage()),
+    );
         /*
         debugPrint("Username: ${usernameController.text}");
         Navigator.push(

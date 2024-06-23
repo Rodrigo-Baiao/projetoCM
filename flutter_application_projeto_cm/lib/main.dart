@@ -5,6 +5,7 @@ import 'package:flutter_application_projeto_cm/ghost/feed.dart';
 import 'package:flutter_application_projeto_cm/ghost/ghost.dart';
 import 'package:flutter_application_projeto_cm/ghost/money.dart';
 import 'package:flutter_application_projeto_cm/light_sensor.dart';
+import 'package:flutter_application_projeto_cm/login_page/login_page.dart';
 import 'package:flutter_application_projeto_cm/minigames_page/minigamesMenu.dart';
 import 'package:flutter_application_projeto_cm/profile/profile.dart';
 import 'package:flutter_application_projeto_cm/settings_page/settings_page.dart';
@@ -73,7 +74,7 @@ class _SplashState extends State<Splash> {
     await Future.delayed(const Duration(seconds: 3), () {});
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => const HomeScreen()),
+      MaterialPageRoute(builder: (context) => const LoginPage()),
     );
   }
 
@@ -105,7 +106,7 @@ class _SplashState extends State<Splash> {
                   ),
                 ),
               ),
-              SizedBox(height: 200), // Add some space between the progress bar and the bottom of the screen
+              SizedBox(height: 200), 
             ],
           ),
         ],
