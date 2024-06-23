@@ -26,7 +26,7 @@ class GhostCustomizationPage extends StatefulWidget {
 }
 
 class _GhostCustomizationPageState extends State<GhostCustomizationPage> {
-  String _selectedImage = '/colors/color_white.png';
+  String _selectedImage = 'assets/colors/color_white.png';
   String _hatImage = '';
   List<Product> _purchasedProducts = [];
 

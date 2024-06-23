@@ -113,7 +113,7 @@ class _MoneyAnimationState extends State<MoneyAnimation> with SingleTickerProvid
                 ),
               ),
               const SizedBox(width: 5), // Espaço entre o texto e o ícone da moeda
-              Image.asset('coin.png', width: 20, height: 20), // Ícone de moeda
+              Image.asset('assets/coin.png', width: 20, height: 20), // Ícone de moeda
             ],
           ),
         ),

@@ -3,7 +3,7 @@ import 'package:flutter_application_projeto_cm/settings_page/sound.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GhostSettings extends ChangeNotifier {
-  String _ghostImage = '/colors/color_white.png';
+  String _ghostImage = 'assets/colors/color_white.png';
   String _hatImage = '';
 
   List<Product> _purchasedProducts = [];
@@ -73,7 +73,7 @@ class GhostSettings extends ChangeNotifier {
 
   Future<void> _loadSettings() async {
     final prefs = await SharedPreferences.getInstance();
-    _ghostImage = prefs.getString('ghostImage') ?? '/colors/color_white.png';
+    _ghostImage = prefs.getString('ghostImage') ?? 'assets/colors/color_white.png';
     _hatImage = prefs.getString('hatImage') ?? '';
     List<String> purchasedProductNames = prefs.getStringList('purchasedProducts') ?? [];
     _purchasedProducts = purchasedProductNames.map((name) => allProducts.firstWhere((product) => product.name == name)).toList();
@@ -156,4 +156,6 @@ final List<Product> allProducts = [
     Product(name: 'Color 3', price: 500, imageUrl: 'assets/colors/color_blue.png', type: 'color'),
     Product(name: 'Color 4', price: 500, imageUrl: 'assets/colors/color_yellow.png', type: 'color'),
     Product(name: 'Color 5', price: 500, imageUrl: 'assets/colors/color_light_pink.png', type: 'color'),
+        Product(name: 'Color 5', price: 500, imageUrl: 'assets/colors/color_white.png', type: 'color'),
+
 ];
