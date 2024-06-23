@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_application_projeto_cm/settings_page/sound.dart';
-import 'package:flutter_application_projeto_cm/ghost/money.dart'; // Import the money class
-import 'package:provider/provider.dart'; // Import provider
+import 'package:flutter_application_projeto_cm/ghost/money.dart';
 import 'package:flutter_application_projeto_cm/ghost/ghost.dart';
-
 
 class CleaningMinigame extends StatefulWidget {
   const CleaningMinigame({super.key});
@@ -119,88 +118,104 @@ class _CleaningMinigameState extends State<CleaningMinigame> {
             Positioned(
               top: 490,
               left: 80,
-              child: MouseRegion(
-                onEnter: (_) {
-                  if (isDraggingTool1) cleanDust1();
+              child: DragTarget<String>(
+                onAccept: (data) {
+                  if (data == 'cleaning_tool_1') cleanDust1();
                 },
-                child: Image.asset('assets/dust.png', width: 40, height: 40),
+                builder: (context, candidateData, rejectedData) {
+                  return Image.asset('assets/dust.png', width: 40, height: 40);
+                },
               ),
             ),
           if (isDusty2)
             Positioned(
               top: 480,
               left: 180,
-              child: MouseRegion(
-                onEnter: (_) {
-                  if (isDraggingTool1) cleanDust2();
+              child: DragTarget<String>(
+                onAccept: (data) {
+                  if (data == 'cleaning_tool_1') cleanDust2();
                 },
-                child: Image.asset('assets/dust.png', width: 40, height: 40),
+                builder: (context, candidateData, rejectedData) {
+                  return Image.asset('assets/dust.png', width: 40, height: 40);
+                },
               ),
             ),
           if (isDusty3)
             Positioned(
               top: 500,
               left: 280,
-              child: MouseRegion(
-                onEnter: (_) {
-                  if (isDraggingTool1) cleanDust3();
+              child: DragTarget<String>(
+                onAccept: (data) {
+                  if (data == 'cleaning_tool_1') cleanDust3();
                 },
-                child: Image.asset('assets/dust.png', width: 40, height: 40),
+                builder: (context, candidateData, rejectedData) {
+                  return Image.asset('assets/dust.png', width: 40, height: 40);
+                },
               ),
             ),
           if (isDusty4)
             Positioned(
               top: 480,
               left: 380,
-              child: MouseRegion(
-                onEnter: (_) {
-                  if (isDraggingTool1) cleanDust4();
+              child: DragTarget<String>(
+                onAccept: (data) {
+                  if (data == 'cleaning_tool_1') cleanDust4();
                 },
-                child: Image.asset('assets/dust.png', width: 40, height: 40),
+                builder: (context, candidateData, rejectedData) {
+                  return Image.asset('assets/dust.png', width: 40, height: 40);
+                },
               ),
             ),
           if (isCobwebbed1)
             Positioned(
               top: 400,
               left: 200,
-              child: MouseRegion(
-                onEnter: (_) {
-                  if (isDraggingTool2) cleanCobweb1();
+              child: DragTarget<String>(
+                onAccept: (data) {
+                  if (data == 'cleaning_tool_2') cleanCobweb1();
                 },
-                child: Image.asset('assets/cobweb.png', width: 40, height: 40),
+                builder: (context, candidateData, rejectedData) {
+                  return Image.asset('assets/cobweb.png', width: 40, height: 40);
+                },
               ),
             ),
           if (isCobwebbed2)
             Positioned(
               top: 300,
               left: 350,
-              child: MouseRegion(
-                onEnter: (_) {
-                  if (isDraggingTool2) cleanCobweb2();
+              child: DragTarget<String>(
+                onAccept: (data) {
+                  if (data == 'cleaning_tool_2') cleanCobweb2();
                 },
-                child: Image.asset('assets/cobweb.png', width: 40, height: 40),
+                builder: (context, candidateData, rejectedData) {
+                  return Image.asset('assets/cobweb.png', width: 40, height: 40);
+                },
               ),
             ),
           if (isCobwebbed3)
             Positioned(
               top: 250,
               left: 250,
-              child: MouseRegion(
-                onEnter: (_) {
-                  if (isDraggingTool2) cleanCobweb3();
+              child: DragTarget<String>(
+                onAccept: (data) {
+                  if (data == 'cleaning_tool_2') cleanCobweb3();
                 },
-                child: Image.asset('assets/cobweb.png', width: 40, height: 40),
+                builder: (context, candidateData, rejectedData) {
+                  return Image.asset('assets/cobweb.png', width: 40, height: 40);
+                },
               ),
             ),
           if (isCobwebbed4)
             Positioned(
               top: 350,
               left: 150,
-              child: MouseRegion(
-                onEnter: (_) {
-                  if (isDraggingTool2) cleanCobweb4();
+              child: DragTarget<String>(
+                onAccept: (data) {
+                  if (data == 'cleaning_tool_2') cleanCobweb4();
                 },
-                child: Image.asset('assets/cobweb.png', width: 40, height: 40),
+                builder: (context, candidateData, rejectedData) {
+                  return Image.asset('assets/cobweb.png', width: 40, height: 40);
+                },
               ),
             ),
           Align(

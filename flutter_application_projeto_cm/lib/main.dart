@@ -18,7 +18,7 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  @override 
+  @override
   Widget build(BuildContext context) {
     try {
       return MultiProvider(
@@ -108,7 +108,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       backgroundColor: Colors.lightBlue[50],
       body: SafeArea(
         child: Consumer<GhostSettings>(
@@ -120,7 +119,6 @@ class _HomeScreenState extends State<HomeScreen> {
             });
 
             return Stack(
-             
               children: [
                 Column(
                   children: [
@@ -239,37 +237,43 @@ class _HomeScreenState extends State<HomeScreen> {
                                   top: 10,
                                   child: Image(image: AssetImage(ghostSettings.hatImage), width: 240, height: 140, fit: BoxFit.contain),
                                 ),
-                              if(isDusty1)
+                              if (isDusty1)
                                 Positioned(
                                   top: 100,
                                   left: 160,
-                                  child: MouseRegion(
-                                    onEnter: (_) {
-                                      if (isDraggingShower) cleanDust1();
+                                  child: DragTarget<String>(
+                                    onAccept: (data) {
+                                      if (data == 'shower_icon') cleanDust1();
                                     },
-                                    child: Image.asset('assets/dust.png', width: 40, height: 40),
-                                  ),),
-                                
+                                    builder: (context, candidateData, rejectedData) {
+                                      return Image.asset('assets/dust.png', width: 40, height: 40);
+                                    },
+                                  ),
+                                ),
                               if (isDusty2)
                                 Positioned(
                                   top: 230,
                                   left: 290,
-                                  child: MouseRegion(
-                                    onEnter: (_) {
-                                      if (isDraggingShower) cleanDust2();
+                                  child: DragTarget<String>(
+                                    onAccept: (data) {
+                                      if (data == 'shower_icon') cleanDust2();
                                     },
-                                    child: Image.asset('assets/dust.png', width: 40, height: 40),
+                                    builder: (context, candidateData, rejectedData) {
+                                      return Image.asset('assets/dust.png', width: 40, height: 40);
+                                    },
                                   ),
                                 ),
                               if (isDusty3)
                                 Positioned(
                                   top: 300,
                                   left: 180,
-                                  child: MouseRegion(
-                                    onEnter: (_) {
-                                      if (isDraggingShower) cleanDust3();
+                                  child: DragTarget<String>(
+                                    onAccept: (data) {
+                                      if (data == 'shower_icon') cleanDust3();
                                     },
-                                    child: Image.asset('assets/dust.png', width: 40, height: 40),
+                                    builder: (context, candidateData, rejectedData) {
+                                      return Image.asset('assets/dust.png', width: 40, height: 40);
+                                    },
                                   ),
                                 ),
                             ],
@@ -296,10 +300,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               Padding(
                                 padding: const EdgeInsets.only(right: 20.0),
                                 child: Draggable<String>(
-                                feedback: Image(image: AssetImage('assets/shower_icon.png')),
-                                childWhenDragging: Container(),
-                                child: Image(image: AssetImage('assets/shower_icon.png')),
-                                onDragStarted: () {
+                                  data: 'shower_icon',
+                                  feedback: Image(image: AssetImage('assets/shower_icon.png')),
+                                  childWhenDragging: Container(),
+                                  child: Image(image: AssetImage('assets/shower_icon.png')),
+                                  onDragStarted: () {
                                     setState(() {
                                       isDraggingShower = true;
                                     });
@@ -359,7 +364,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     left: MediaQuery.of(context).size.width / 2 - 30, 
                     child: MoneyAnimation(amount: ghostSettings.animationAmount),
                   ),
-                if(ghostSettings.showFeedLimitMessage)
+                if (ghostSettings.showFeedLimitMessage)
                   Positioned(
                     top: 200, 
                     left: MediaQuery.of(context).size.width / 2 - 30, 
