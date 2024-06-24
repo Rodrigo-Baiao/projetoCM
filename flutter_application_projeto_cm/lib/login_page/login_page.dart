@@ -4,7 +4,6 @@ import 'package:flutter_application_projeto_cm/login_page/fingerprint.dart';
 import 'package:flutter_application_projeto_cm/register_page/register_page.dart';
 import 'package:flutter_application_projeto_cm/utils/show_snackbar.dart';
 
-
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -68,11 +67,24 @@ class _LoginPageState extends State<LoginPage> {
   Widget _fingerprintIcon() {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => const FingerPrintPage()),
-        );
+        if (usernameController.text.isEmpty) {
+          ShowSnackBar.showSnackbar(
+            context: context,
+            message: 'Por-favor preencha o campo Email.',
+            backgroundColor: Theme.of(context).colorScheme.error,
+          );
+        } else if (passwordController.text.isEmpty) {
+          ShowSnackBar.showSnackbar(
+            context: context,
+            message: 'Por-favor preencha o campo Password.',
+            backgroundColor: Theme.of(context).colorScheme.error,
+          );
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const FingerPrintPage()),
+          );
+        }
       },
       child: Container(
         decoration: BoxDecoration(

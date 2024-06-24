@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_projeto_cm/home_page_v2.dart';
 import 'package:flutter_application_projeto_cm/main.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:flutter/services.dart';
@@ -103,7 +104,7 @@ class _FingerPrintPageState extends State<FingerPrintPage> {
                 } else {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const HomeScreen()),
+                    MaterialPageRoute(builder: (context) => const HomeScreenPage()),
                   );
                 }
               },

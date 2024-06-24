@@ -17,7 +17,7 @@ import 'package:provider/provider.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
 class HomeScreenPage extends StatefulWidget {
-  const HomeScreenPage({Key? key}) : super(key: key);
+  const HomeScreenPage({super.key});
 
   @override
   _HomeScreenState createState() => _HomeScreenState();

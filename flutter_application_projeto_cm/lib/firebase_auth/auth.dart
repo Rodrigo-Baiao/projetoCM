@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_projeto_cm/ghost/ghost.dart';
 import 'package:flutter_application_projeto_cm/home_page_v2.dart';
+import 'package:flutter_application_projeto_cm/login_page/fingerprint.dart';
 import 'package:flutter_application_projeto_cm/utils/show_snackbar.dart';
 import 'package:provider/provider.dart';
 
@@ -31,7 +32,8 @@ class Auth {
           email: email, password: password);
 
       Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const HomeScreenPage()));
+          //MaterialPageRoute(builder: (context) => const HomeScreenPage()));
+          MaterialPageRoute(builder: (context) => const FingerPrintPage()));
     } on FirebaseAuthException catch (e) {
       print("Error code = " + e.code);
       if (e.code == 'invalid-credential') {
