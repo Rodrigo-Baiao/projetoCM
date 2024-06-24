@@ -8,6 +8,7 @@ import 'package:flutter_application_projeto_cm/ghost/feed.dart';
 import 'package:flutter_application_projeto_cm/ghost/ghost.dart';
 import 'package:flutter_application_projeto_cm/ghost/money.dart';
 import 'package:flutter_application_projeto_cm/light_sensor.dart';
+import 'package:flutter_application_projeto_cm/map/map.dart';
 import 'package:flutter_application_projeto_cm/minigames_page/minigamesMenu.dart';
 import 'package:flutter_application_projeto_cm/profile/profile.dart';
 import 'package:flutter_application_projeto_cm/settings_page/settings_page.dart';
@@ -226,12 +227,13 @@ class _HomeScreenState extends State<HomeScreenPage> {
                             },
                           ),
                           GestureDetector(
-                            child: Image(
-                                image: AssetImage('assets/map_icon.png'),
-                                width: 120,
-                                height: 120),
+                            child: Image(image: AssetImage('assets/map_icon.png'), width: 120, height: 120),
                             onTap: () {
                               Sound.clickSound();
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => MapScreen()) // Navigate to TreasureHuntScreen
+                              );
                             },
                           ),
                         ],
