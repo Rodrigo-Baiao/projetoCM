@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_projeto_cm/firebase_auth/auth.dart';
-import 'package:flutter_application_projeto_cm/minigames_page/minigamesMenu.dart';
+import 'package:flutter_application_projeto_cm/login_page/fingerprint.dart';
 import 'package:flutter_application_projeto_cm/register_page/register_page.dart';
 import 'package:flutter_application_projeto_cm/utils/show_snackbar.dart';
 
-import 'fingerprint.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -27,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
         color: Color(_lightBlue),
       ),
       child: Scaffold(
-        backgroundColor: Color(0xFFD1E3F8),
+        backgroundColor: const Color(0xFFD1E3F8),
         body: _page(),
       ),
     );
@@ -72,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => const FingerPrintSensorPage()),
+              builder: (context) => const FingerPrintPage()),
         );
       },
       child: Container(
