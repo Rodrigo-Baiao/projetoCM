@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_projeto_cm/home_page_v2.dart';
+import 'package:flutter_application_projeto_cm/main.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:flutter/services.dart';
 
-import '../profile_customize/custom_profile_page.dart';
-
-class FingerPrintSensorPage extends StatefulWidget {
-  const FingerPrintSensorPage({super.key});
+class FingerPrintPage extends StatefulWidget {
+  const FingerPrintPage({super.key});
 
   @override
-  State<FingerPrintSensorPage> createState() => _FingerPrintSensorPageState();
+  State<FingerPrintPage> createState() => _FingerPrintPageState();
 }
 
-class _FingerPrintSensorPageState extends State<FingerPrintSensorPage> {
+class _FingerPrintPageState extends State<FingerPrintPage> {
   final LocalAuthentication _localAuth = LocalAuthentication();
   bool? _isAuthenticated = false;
 
@@ -104,9 +104,7 @@ class _FingerPrintSensorPageState extends State<FingerPrintSensorPage> {
                 } else {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            const ProfileCustomizationScreen()),
+                    MaterialPageRoute(builder: (context) => const HomeScreenPage()),
                   );
                 }
               },

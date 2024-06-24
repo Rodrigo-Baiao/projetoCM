@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_projeto_cm/main.dart';
+import 'package:flutter_application_projeto_cm/ghost/ghost.dart';
+import 'package:flutter_application_projeto_cm/home_page_v2.dart';
+import 'package:flutter_application_projeto_cm/login_page/fingerprint.dart';
 import 'package:flutter_application_projeto_cm/utils/show_snackbar.dart';
+import 'package:provider/provider.dart';
 
 import '../login_page/login_page.dart';
-import '../profile_customize/custom_profile_page.dart';
 
 class Auth {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -29,10 +31,9 @@ class Auth {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
 
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => const HomeScreen()));
+      Navigator.push(context,
+          //MaterialPageRoute(builder: (context) => const HomeScreenPage()));
+          MaterialPageRoute(builder: (context) => const FingerPrintPage()));
     } on FirebaseAuthException catch (e) {
       print("Error code = " + e.code);
       if (e.code == 'invalid-credential') {
@@ -89,7 +90,11 @@ class Auth {
     }
   }
 
-  Future<void> signOut() async {
+  Future<void> signOut(BuildContext context) async {
     await _firebaseAuth.signOut();
+    final ghostSettings = Provider.of<GhostSettings>(context, listen: false);
+    ghostSettings.setGhostImage('assets/sleeping.png');
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const LoginPage()));
   }
 }

@@ -1,13 +1,8 @@
-// ignore_for_file: library_private_types_in_public_api
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_application_projeto_cm/firebase_auth/auth.dart';
 import 'package:flutter_application_projeto_cm/settings_page/authors_credits.dart';
-import 'package:flutter_application_projeto_cm/settings_page/fingerprint.dart';
 import 'package:flutter_application_projeto_cm/settings_page/sound_switch.dart';
 import 'package:flutter_application_projeto_cm/settings_page/support_and_feedback.dart';
-
 
 class SettingsForm extends StatefulWidget {
   const SettingsForm({super.key});
@@ -17,27 +12,32 @@ class SettingsForm extends StatefulWidget {
 }
 
 class _SettingsFormState extends State<SettingsForm> {
+  Widget logoutBtn() {
+    return TextButton(
+      onPressed: () {
+        Auth().signOut(context);
+      },
+      child: const Text(
+        'Sign Out',
+        style: TextStyle(
+          color: Colors.red,
+          fontSize: 22,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(30.0),
+    return Padding(
+      padding: const EdgeInsets.all(30.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SoundSwitch(),
-          SizedBox(height: 40),
-          SizedBox(
-            width: double.infinity,
-            child: Row(
-              children: [
-                Expanded(
-                  child: FingerprintWidget(),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 40),
-          SizedBox(
+          const SoundSwitch(),
+          const SizedBox(height: 40),
+          const SizedBox(
             width: double.infinity,
             child: Row(
               children: [
@@ -47,13 +47,24 @@ class _SettingsFormState extends State<SettingsForm> {
               ],
             ),
           ),
-          SizedBox(height: 40),
-          SizedBox(
+          const SizedBox(height: 40),
+          const SizedBox(
             width: double.infinity,
             child: Row(
               children: [
                 Expanded(
                   child: AuthorCreditsWidget(),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 40),
+          SizedBox(
+            width: double.infinity,
+            child: Row(
+              children: [
+                Expanded(
+                  child: logoutBtn(), // Correctly reference the logout button
                 ),
               ],
             ),
